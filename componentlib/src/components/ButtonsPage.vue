@@ -5,7 +5,7 @@
                 panel 1
             </div>
             <div class="buttonshead-panels-panel" v-if="showPanel == 'panel2'">
-                panel 2
+                <bezier-gen></bezier-gen>
             </div>
             <div class="buttonshead-panels-panel" v-if="showPanel == 'panel3'">
                 panel 3
@@ -44,10 +44,12 @@
 
 <script>
 import buttonsList from "./Buttons.vue";
+import bezierGenerator from "./BezierGenerator.vue";
 
 export default {
     components: {
         "buttons-list": buttonsList,
+        'bezier-gen': bezierGenerator,
     },
     data() {
         return {
