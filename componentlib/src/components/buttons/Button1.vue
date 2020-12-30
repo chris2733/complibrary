@@ -4,7 +4,7 @@
 </template>
 
 <script>
-import styled from 'vue-styled-components';
+// import styled from 'vue-styled-components';
 
 export default {
     data() {

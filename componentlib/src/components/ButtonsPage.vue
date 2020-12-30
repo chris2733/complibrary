@@ -1,27 +1,42 @@
 <template>
     <div class="buttonshead">
-        <section class="buttonshead-panels" v-if="showPanel">
-            <div class="buttonshead-panels-panel"></div>
-            <div class="buttonshead-panels-panel"></div>
-            <div class="buttonshead-panels-panel"></div>
+        <section class="buttonshead-panels">
+            <div class="buttonshead-panels-panel" v-if="showPanel == 'panel1'">
+                panel 1
+            </div>
+            <div class="buttonshead-panels-panel" v-if="showPanel == 'panel2'">
+                panel 2
+            </div>
+            <div class="buttonshead-panels-panel" v-if="showPanel == 'panel3'">
+                panel 3
+            </div>
         </section>
         <section class="buttonshead-main">
             <p>Buttons Page</p>
             <div class="buttonshead-tabs">
-                <button class="buttonshead-tabs-each">
+                <button
+                    class="buttonshead-tabs-each"
+                    @click="showHidePanel('panel1')"
+                >
                     <img src="../assets/paintimg.png" alt="" />
                 </button>
-                <button class="buttonshead-tabs-each">
+                <button
+                    class="buttonshead-tabs-each"
+                    @click="showHidePanel('panel2')"
+                >
                     <img src="../assets/bounceimg.png" alt="" />
                 </button>
-                <button class="buttonshead-tabs-each">
+                <button
+                    class="buttonshead-tabs-each"
+                    @click="showHidePanel('panel3')"
+                >
                     <img src="../assets/textimg.png" alt="" />
                 </button>
             </div>
         </section>
         <section class="buttonshead-textfill">
             <p>Button Text</p>
-            <input type="text" v-model="buttonFillText">
+            <input type="text" v-model="buttonFillText" />
         </section>
         <buttons-list></buttons-list>
     </div>
@@ -32,13 +47,22 @@ import buttonsList from "./Buttons.vue";
 
 export default {
     components: {
-        'buttons-list': buttonsList
+        "buttons-list": buttonsList,
     },
     data() {
         return {
-            showPanel: true,
-            buttonFillText: 'Button',
+            buttonFillText: "Button",
+            showPanel: null,
         };
+    },
+    methods: {
+        showHidePanel(panelNo) {
+            if (this.showPanel == panelNo) {
+                this.showPanel = null;
+            } else {
+                this.showPanel = panelNo;
+            }
+        },
     },
 };
 </script>
