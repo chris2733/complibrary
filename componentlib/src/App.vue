@@ -1,26 +1,21 @@
 <template>
-  <div class="container-fluid">
-    <div class="topbar">
-      <h1 class="topbar-title">Component lib</h1>
-      <a href="#nogo">Buttons</a>
-      <a href="#nogo">Components</a>
-    </div>
-  </div>
+	<div class="container-fluid">
+		<TopNav></TopNav>
+		<buttons-page></buttons-page>
+	</div>
 </template>
 
 <script>
-// import HelloWorld from './components/HelloWorld.vue'
+import TopNav from './components/TopNav.vue'
 
 export default {
-  name: "App",
+	name: "App",
+	components: {
+		TopNav
+	}
 };
 </script>
 
 <style lang="scss">
-.topbar {
-  display: flex;
-  &-title {
-    flex-grow: 1;
-  }
-}
+
 </style>

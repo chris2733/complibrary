@@ -1,6 +1,10 @@
 import { createApp } from 'vue'
-import App from './App.vue'
-// import global css
 import './scss/main.scss'
+import App from './App.vue'
+import ButtonsPage from './components/ButtonsPage.vue'
 
-createApp(App).mount('#app')
+const app = createApp(App);
+
+app.component('buttons-page', ButtonsPage);
+
+app.mount('#app')
