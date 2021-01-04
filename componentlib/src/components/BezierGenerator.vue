@@ -4,6 +4,8 @@
 			id="bezierCanvasGen"
 			@mousedown="bezierCanvasMouseDown"
 			@mousemove="bezierCanvasMouseMove"
+			@mouseup="resetMouse"
+			@mouseleave="resetMouse"
 			:width="canvasWidth"
 			:height="canvasHeight"
 		></canvas>
@@ -150,7 +152,6 @@ export default {
 		getCanvasOffsets() {
 			this.canvasOffsetLeft = document.querySelector(this.canvas).getBoundingClientRect().left;
 			this.canvasOffsetTop = document.querySelector(this.canvas).getBoundingClientRect().top;
-			console.log(this);
 		},
 		// draw graph outline and wave
 		drawGraph() {
@@ -273,6 +274,7 @@ export default {
 			this.cubicP2 = newPreset[1];
 			this.cubicP3 = newPreset[2];
 			this.cubicP4 = newPreset[3];
+			this.drawGraph();
 		},
 		// listening for clicking on the drawpoints
 		bezierCanvasMouseDown(e) {
@@ -321,6 +323,7 @@ export default {
 					this.cubicP3 = cubicPointX;
 					this.cubicP4 = cubicPointYNew;
 				}
+				this.drawGraph();
 			}
 		},
 		// sets mouseMoved to false
@@ -334,20 +337,19 @@ export default {
 				document.body.style.cursor = "grabbing";
 			}
 		},
+		// listening for mouse up or leave on canvas to stop moving point
+		resetMouse() {
+			document.body.style.cursor = "auto";
+			// setting position of mouse
+			this.mouseMoved = false;
+			this.mousePointToMove = false;
+		},
 	},
 	mounted() {
 		this.getCanvasOffsets();
 		// -- rerun listeners on window scroll & resize
-		window.addEventListener("resize", this.getCanvasOffsets());
-		window.addEventListener("scroll", this.getCanvasOffsets());
-		// listening for mouse up to stop moving point
-		window.addEventListener("mouseup", function() {
-			document.body.style.cursor = "auto";
-			// setting position of mouse
-			if (this.mouseMoved == true) {
-				this.mousePointToMove = false;
-			}
-		});
+		window.addEventListener("resize", this.getCanvasOffsets);
+		window.addEventListener("scroll", this.getCanvasOffsets);
 
 		// draw graph
 		this.drawGraph();
