@@ -1,11 +1,13 @@
 <template>
     <div class="buttonshead">
+    <p class="whitetext">{{ bezier.bezierVal }}</p>
+        <p class="whitetext">{{ bezier.speed }}</p>
         <section class="buttonshead-panels">
             <div class="buttonshead-panels-panel" v-if="showPanel == 'panel1'">
                 panel 1
             </div>
             <div class="buttonshead-panels-panel" v-if="showPanel == 'panel2'">
-                <bezier-gen></bezier-gen>
+                <bezier-gen @pass-bezier-values="updateBezier" :bezier-live-vals="bezier"></bezier-gen>
             </div>
             <div class="buttonshead-panels-panel" v-if="showPanel == 'panel3'">
                 panel 3
@@ -55,6 +57,10 @@ export default {
         return {
             buttonFillText: "Button",
             showPanel: null,
+            bezier: {
+                bezierVal: [0.25,0.25,0.75,0.75],
+                speed: '300ms',
+            }
         };
     },
     methods: {
@@ -65,6 +71,14 @@ export default {
                 this.showPanel = panelNo;
             }
         },
+        updateBezier(newvals) {
+            const newarr = [];
+            newvals.bezier.forEach(el => {
+                newarr.push(parseFloat(el));
+            });
+            console.log(newarr);
+            this.bezier.bezierVal = newarr;
+        }
     },
 };
 </script>

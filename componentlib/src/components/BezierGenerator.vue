@@ -69,6 +69,19 @@
 
 <script>
 export default {
+	props: [
+		'bezierLiveVals'
+	],
+	emits: {
+		'pass-bezier-values': function(vals) {
+			if (vals) {
+				return true
+			} else {
+				console.log('no beziergen vals passed');
+				return false
+			}
+		},
+	},
 	data() {
 		return {
 			// select element with type
@@ -102,10 +115,10 @@ export default {
 			// speed set
 			speedSliderTransition: 400,
 			// set bezier vals
-			cubicP1: 0.25,
-			cubicP2: 0.25,
-			cubicP3: 0.75,
-			cubicP4: 0.75,
+			cubicP1: this.bezierLiveVals.bezierVal[0],
+			cubicP2: this.bezierLiveVals.bezierVal[1],
+			cubicP3: this.bezierLiveVals.bezierVal[2],
+			cubicP4: this.bezierLiveVals.bezierVal[3],
 			// bezier value
 			bezierPosition: {},
 			// id of bezier preset select
@@ -150,8 +163,12 @@ export default {
 	},
 	methods: {
 		getCanvasOffsets() {
-			this.canvasOffsetLeft = document.querySelector(this.canvas).getBoundingClientRect().left;
-			this.canvasOffsetTop = document.querySelector(this.canvas).getBoundingClientRect().top;
+			// checking if canvas exists, because the app triggers when its closed, need to fix
+			const canvasEl = document.querySelector(this.canvas);
+			if (canvasEl) {
+				this.canvasOffsetLeft = canvasEl.getBoundingClientRect().left;
+				this.canvasOffsetTop = canvasEl.getBoundingClientRect().top;
+			}
 		},
 		// draw graph outline and wave
 		drawGraph() {
@@ -267,6 +284,8 @@ export default {
 			this.paintbrush.strokeStyle = this.pointStroke;
 			this.paintbrush.stroke();
 
+			this.emitValues();
+
 		},
 		presetBezierSelectChange(e) {
 			var newPreset = JSON.parse(e.target.value);
@@ -343,6 +362,14 @@ export default {
 			// setting position of mouse
 			this.mouseMoved = false;
 			this.mousePointToMove = false;
+		},
+		// emits vals to parent
+		emitValues() {
+			const vals = {
+				bezier: [this.cubicP1,this.cubicP2,this.cubicP3,this.cubicP4],
+			}
+			this.$emit('pass-bezier-values', vals);
+			console.log(this.bezierLiveVals.bezierVal[0]);
 		},
 	},
 	mounted() {

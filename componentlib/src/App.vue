@@ -13,8 +13,17 @@ export default {
     components: {
         TopNav,
     },
+    data() {
+        return {
+        }
+    },
+    methods: {
+    }
 };
 </script>
 
 <style lang="scss">
+.whitetext {
+    color: #fff;
+}
 </style>
