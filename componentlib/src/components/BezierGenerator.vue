@@ -9,9 +9,10 @@
 			:width="canvasWidth"
 			:height="canvasHeight"
 		></canvas>
-		<figcaption id="labelFontSize">
-			<div class="speedslider">
-				<label for="speedSlider">Animation Speed:</label>
+		<figcaption id="labelFontSize" class="bezierInfo">
+			<div id="transitionDemo" class="bezierInfo-demo" :style="setTransitionDemo"> hover </div>
+			<div class="bezierInfo-speed">
+				<label for="speedSlider">Animation Speed: <span id="speedSliderVal">{{ speedSliderTransition }}ms</span></label>
 				<input
 					type="range"
 					id="speedSlider"
@@ -21,48 +22,68 @@
 					step="10"
 					@change="emitValues"
 				/>
-				<span id="speedSliderVal">{{ speedSliderTransition }}ms</span>
 			</div>
-			<p>Cubic Bezier:</p>
-			<span id="currentEasingP1">{{ cubicP1 }}</span>,
-			<span id="currentEasingP2">{{ cubicP2 }}</span>,
-			<span id="currentEasingP3">{{ cubicP3 }}</span>,
-			<span id="currentEasingP4">{{ cubicP4 }}</span>
-			<span id="transitionDemo" :style="setTransitionDemo"> hover </span>
-			<div class="presetBezier">
-				Choose a preset:
+			<div class="bezierInfo-bezier">
+				<p>Cubic Bezier:</p>
+				<span id="currentEasingP1">{{ cubicP1 }}</span
+				>, <span id="currentEasingP2">{{ cubicP2 }}</span
+				>, <span id="currentEasingP3">{{ cubicP3 }}</span
+				>, <span id="currentEasingP4">{{ cubicP4 }}</span>
+			</div>
+			<div class="bezierInfo-presets">
+				<div class="presetBezier">
+					Choose a preset:
+				</div>
 				<select
-					name=""
-					id="presetBezierSelect"
-					@change="presetBezierSelectChange"
-				>
-					<option value="[0.12, 0, 0.39, 0]">easeInSine</option>
-					<option value="[0.61, 1, 0.88, 1]">easeOutSine</option>
-					<option value="[0.37, 0, 0.63, 1]">easeInOutSine</option>
-					<option value="[0.11, 0, 0.5, 0]">easeInQuad</option>
-					<option value="[0.5, 1, 0.89, 1]">easeOutQuad</option>
-					<option value="[0.45, 0, 0.55, 1]">easeInOutQuad</option>
-					<option value="[0.32, 0, 0.67, 0]">easeInCubic</option>
-					<option value="[0.33, 1, 0.68, 1]">easeOutCubic</option>
-					<option value="[0.65, 0, 0.35, 1]">easeInOutCubic</option>
-					<option value="[0.5, 0, 0.75, 0]">easeInQuart</option>
-					<option value="[0.25, 1, 0.5, 1]">easeOutQuart</option>
-					<option value="[0.76, 0, 0.24, 1]">easeInOutQuart</option>
-					<option value="[0.64, 0, 0.78, 0]">easeInQuint</option>
-					<option value="[0.22, 1, 0.36, 1]">easeOutQuint</option>
-					<option value="[0.83, 0, 0.17, 1]">easeInOutQuint</option>
-					<option value="[0.7, 0, 0.84, 0]">easeInExpo</option>
-					<option value="[0.16, 1, 0.3, 1]">easeOutExpo</option>
-					<option value="[0.87, 0, 0.13, 1]">easeInOutExpo</option>
-					<option value="[0.55, 0, 1, 0.45]">easeInCirc</option>
-					<option value="[0, 0.55, 0.45, 1]">easeOutCirc</option>
-					<option value="[0.85, 0, 0.15, 1]">easeInOutCirc</option>
-					<option value="[0.36, 0, 0.66, -0.56]">easeInBack</option>
-					<option value="[0.34, 1.56, 0.64, 1]">easeOutBack</option>
-					<option value="[0.68, -0.6, 0.32, 1.6]">
-						easeInOutBack
-					</option>
-				</select>
+						name=""
+						id="presetBezierSelect"
+						@change="presetBezierSelectChange"
+					>
+						<option value="[0.12, 0, 0.39, 0]">easeInSine</option>
+						<option value="[0.61, 1, 0.88, 1]">easeOutSine</option>
+						<option value="[0.37, 0, 0.63, 1]"
+							>easeInOutSine</option
+						>
+						<option value="[0.11, 0, 0.5, 0]">easeInQuad</option>
+						<option value="[0.5, 1, 0.89, 1]">easeOutQuad</option>
+						<option value="[0.45, 0, 0.55, 1]"
+							>easeInOutQuad</option
+						>
+						<option value="[0.32, 0, 0.67, 0]">easeInCubic</option>
+						<option value="[0.33, 1, 0.68, 1]">easeOutCubic</option>
+						<option value="[0.65, 0, 0.35, 1]"
+							>easeInOutCubic</option
+						>
+						<option value="[0.5, 0, 0.75, 0]">easeInQuart</option>
+						<option value="[0.25, 1, 0.5, 1]">easeOutQuart</option>
+						<option value="[0.76, 0, 0.24, 1]"
+							>easeInOutQuart</option
+						>
+						<option value="[0.64, 0, 0.78, 0]">easeInQuint</option>
+						<option value="[0.22, 1, 0.36, 1]">easeOutQuint</option>
+						<option value="[0.83, 0, 0.17, 1]"
+							>easeInOutQuint</option
+						>
+						<option value="[0.7, 0, 0.84, 0]">easeInExpo</option>
+						<option value="[0.16, 1, 0.3, 1]">easeOutExpo</option>
+						<option value="[0.87, 0, 0.13, 1]"
+							>easeInOutExpo</option
+						>
+						<option value="[0.55, 0, 1, 0.45]">easeInCirc</option>
+						<option value="[0, 0.55, 0.45, 1]">easeOutCirc</option>
+						<option value="[0.85, 0, 0.15, 1]"
+							>easeInOutCirc</option
+						>
+						<option value="[0.36, 0, 0.66, -0.56]"
+							>easeInBack</option
+						>
+						<option value="[0.34, 1.56, 0.64, 1]"
+							>easeOutBack</option
+						>
+						<option value="[0.68, -0.6, 0.32, 1.6]">
+							easeInOutBack
+						</option>
+					</select>
 			</div>
 		</figcaption>
 	</figure>
@@ -70,16 +91,14 @@
 
 <script>
 export default {
-	props: [
-		'bezierLiveVals'
-	],
+	props: ["bezierLiveVals"],
 	emits: {
-		'pass-bezier-values': function(vals) {
+		"pass-bezier-values": function(vals) {
 			if (vals) {
-				return true
+				return true;
 			} else {
-				console.log('no beziergen vals passed');
-				return false
+				console.log("no beziergen vals passed");
+				return false;
 			}
 		},
 	},
@@ -148,7 +167,7 @@ export default {
 				// p3: this.canvasWidth,
 				// p4: this.starty,
 				p1: 1,
-				p2: (600 * 0.3) + (600 * 0.3),
+				p2: 600 * 0.3 + 600 * 0.3,
 				p3: 200,
 				p4: 600 * 0.3,
 			},
@@ -156,10 +175,21 @@ export default {
 	},
 	computed: {
 		setTransitionDemo() {
-			var cubicString = "all " + this.speedSliderTransition +  "ms cubic-bezier(" + this.cubicP1 + "," + this.cubicP2 + "," + this.cubicP3 + "," + this.cubicP4 + ")";
+			var cubicString =
+				"all " +
+				this.speedSliderTransition +
+				"ms cubic-bezier(" +
+				this.cubicP1 +
+				"," +
+				this.cubicP2 +
+				"," +
+				this.cubicP3 +
+				"," +
+				this.cubicP4 +
+				")";
 			return {
 				transition: cubicString,
-			}
+			};
 		},
 	},
 	methods: {
@@ -173,9 +203,10 @@ export default {
 		},
 		// draw graph outline and wave
 		drawGraph() {
-
 			// set paintbrush to draw with
-			this.paintbrush = document.querySelector("#bezierCanvasGen").getContext("2d");
+			this.paintbrush = document
+				.querySelector("#bezierCanvasGen")
+				.getContext("2d");
 
 			// clear canvas first
 			this.paintbrush.clearRect(
@@ -201,11 +232,7 @@ export default {
 
 			// draw x and y text
 			this.paintbrush.font = "14px Verdana";
-			this.paintbrush.fillText(
-				"x",
-				this.startX + 5,
-				this.startY + 15
-			);
+			this.paintbrush.fillText("x", this.startX + 5, this.startY + 15);
 			this.paintbrush.fillText(
 				"t",
 				this.startX + this.graphWidth - 10,
@@ -227,7 +254,14 @@ export default {
 			this.paintbrush.strokeStyle = "#1d3557";
 			this.paintbrush.beginPath();
 			this.paintbrush.moveTo(this.linePosition.p1, this.linePosition.p2);
-			this.paintbrush.bezierCurveTo(this.bezierPosition.p1, this.bezierPosition.p2, this.bezierPosition.p3, this.bezierPosition.p4, this.linePosition.p3, this.linePosition.p4);
+			this.paintbrush.bezierCurveTo(
+				this.bezierPosition.p1,
+				this.bezierPosition.p2,
+				this.bezierPosition.p3,
+				this.bezierPosition.p4,
+				this.linePosition.p3,
+				this.linePosition.p4
+			);
 			this.paintbrush.stroke();
 
 			// ----drawing the points
@@ -236,10 +270,7 @@ export default {
 			this.paintbrush.lineWidth = 1;
 			// draw line to first point
 			this.paintbrush.beginPath();
-			this.paintbrush.moveTo(
-				this.linePosition.p1,
-				this.linePosition.p2
-			);
+			this.paintbrush.moveTo(this.linePosition.p1, this.linePosition.p2);
 			this.paintbrush.lineTo(
 				this.bezierPosition.p1,
 				this.bezierPosition.p2
@@ -261,10 +292,7 @@ export default {
 			this.paintbrush.stroke();
 			// draw line to second point
 			this.paintbrush.beginPath();
-			this.paintbrush.moveTo(
-				this.linePosition.p3,
-				this.linePosition.p4
-			);
+			this.paintbrush.moveTo(this.linePosition.p3, this.linePosition.p4);
 			this.paintbrush.lineTo(
 				this.bezierPosition.p3,
 				this.bezierPosition.p4
@@ -286,7 +314,6 @@ export default {
 			this.paintbrush.stroke();
 
 			this.emitValues();
-
 		},
 		presetBezierSelectChange(e) {
 			var newPreset = JSON.parse(e.target.value);
@@ -329,8 +356,7 @@ export default {
 					(mouseXMove - this.startX) /
 					this.graphWidth
 				).toFixed(2);
-				var cubicPointY =
-					(mouseYMove - this.startY) / this.graphHeight;
+				var cubicPointY = (mouseYMove - this.startY) / this.graphHeight;
 				// inverting cubic y becuase the graph is drawn from the top.. god dammit
 				var cubicPointYNew = Math.abs(cubicPointY - 1).toFixed(2);
 				if (cubicPointY > 1) {
@@ -367,10 +393,15 @@ export default {
 		// emits vals to parent
 		emitValues() {
 			const vals = {
-				bezier: [this.cubicP1,this.cubicP2,this.cubicP3,this.cubicP4],
+				bezier: [
+					this.cubicP1,
+					this.cubicP2,
+					this.cubicP3,
+					this.cubicP4,
+				],
 				transition: this.speedSliderTransition,
-			}
-			this.$emit('pass-bezier-values', vals);
+			};
+			this.$emit("pass-bezier-values", vals);
 		},
 	},
 	mounted() {
@@ -381,7 +412,6 @@ export default {
 
 		// draw graph
 		this.drawGraph();
-
 	},
 };
 </script>
@@ -402,7 +432,6 @@ figure {
 	position: relative;
 	display: flex;
 	flex-direction: row;
-	align-items: center;
 	justify-content: center;
 	canvas {
 		margin: 0;
@@ -414,28 +443,39 @@ figure {
 		transform: translate(50%, -50%);
 		top: 50%;
 	}
-	#labelFontSize {
-		padding: 0 0 0 30px;
+	.bezierInfo {
+		position: relative;
+		color: #d5d5d5;
+		padding: 180px 0 0 30px;
+		width: 220px;
 		p {
 			margin: 0;
 		}
-		.speedslider {
-			margin: 0 0 15px 0;
+		&-speed {
+			margin: 0 0 20px 0;
 			label {
 				display: block;
 			}
+			input {
+
+			}
 		}
-		#transitionDemo {
+		&-bezier {
+			margin: 0 0 20px 0;
+		}
+		&-demo {
 			display: block;
 			position: relative;
-			padding: 10px 80px;
-			border: 1px solid rgba(0, 0, 0, 0.4);
+			padding: 10px;
+			border: 2px solid #d5d5d5;
 			border-radius: 8px;
 			text-transform: uppercase;
 			overflow: hidden;
-			margin: 15px 0;
-			letter-spacing: 1px;
-			font-size: 14px;
+			margin: 0 0 20px 0;
+			letter-spacing: 1.5px;
+			font-size: 12px;
+			user-select: none;
+			text-align: center;
 			&::before {
 				content: "";
 				position: absolute;
@@ -451,6 +491,12 @@ figure {
 				&::before {
 					width: 100%;
 				}
+			}
+		}
+		&-presets {
+			select {
+				margin: 5px 0 0 0;
+				width: 100%;
 			}
 		}
 	}
