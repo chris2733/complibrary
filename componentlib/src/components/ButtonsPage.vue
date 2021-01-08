@@ -59,7 +59,7 @@ export default {
             showPanel: null,
             bezier: {
                 bezierVal: [0.25,0.25,0.75,0.75],
-                speed: '300ms',
+                speed: 300,
             }
         };
     },
@@ -76,8 +76,8 @@ export default {
             newvals.bezier.forEach(el => {
                 newarr.push(parseFloat(el));
             });
-            console.log(newarr);
             this.bezier.bezierVal = newarr;
+            this.bezier.speed = parseInt(newvals.transition);
         }
     },
 };

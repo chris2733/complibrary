@@ -19,6 +19,7 @@
 					max="1500"
 					v-model="speedSliderTransition"
 					step="10"
+					@change="emitValues"
 				/>
 				<span id="speedSliderVal">{{ speedSliderTransition }}ms</span>
 			</div>
@@ -113,7 +114,7 @@ export default {
 			speedSlider: document.querySelector("#speedSlider"),
 			speedSliderVal: document.querySelector("#speedSliderVal"),
 			// speed set
-			speedSliderTransition: 400,
+			speedSliderTransition: this.bezierLiveVals.speed,
 			// set bezier vals
 			cubicP1: this.bezierLiveVals.bezierVal[0],
 			cubicP2: this.bezierLiveVals.bezierVal[1],
@@ -367,9 +368,9 @@ export default {
 		emitValues() {
 			const vals = {
 				bezier: [this.cubicP1,this.cubicP2,this.cubicP3,this.cubicP4],
+				transition: this.speedSliderTransition,
 			}
 			this.$emit('pass-bezier-values', vals);
-			console.log(this.bezierLiveVals.bezierVal[0]);
 		},
 	},
 	mounted() {
