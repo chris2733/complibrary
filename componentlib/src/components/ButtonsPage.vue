@@ -69,7 +69,7 @@ export default {
 				bezierVal: [0.25, 0.25, 0.75, 0.75],
 				speed: 300,
 			},
-			currentColour: "hsl(200, 85%, 50%)",
+			currentColour: "#03ab28",
 		};
 	},
 	methods: {

@@ -51,8 +51,8 @@ export default {
 	data() {
 		return {
 			// had to use HSV from the user, convert to rgb, then to hex to be consistent
-			currentColourValues: [239, 54, 81, 255],
-			currentColour: "#5e60ce",
+			currentColourValues: [239, 54, 81, 255], //these both need to be set correct initially
+			currentColour: "#5e60ce", //these both need to be set correct initially
 			swatchWidth: 0,
 			swatchHeight: 0,
 			swatchPosition: {
@@ -93,6 +93,7 @@ export default {
 	},
 	mounted() {
 		this.setSwatchWidth();
+        this.setSwatchPickerPosInitially();
 	},
 	methods: {
 		setSwatchWidth() {
@@ -143,14 +144,21 @@ export default {
 				const pickerX = (offsetX / this.swatchWidth) * 100;
 				const pickerY =
 					((offsetY / this.swatchHeight) * 100 - 100) * -1;
-				this.swatchPosition.x = pickerX + "%";
-				this.swatchPosition.y = pickerY + "%";
+                this.setSwatchPickerPos(pickerX, pickerY);
 				this.currentColourValues[1] = pickerX;
 				this.currentColourValues[2] = pickerY;
                 this.colourChange();
 
 			}
 		},
+        setSwatchPickerPos(x, y) {
+            this.swatchPosition.x = x + "%";
+            this.swatchPosition.y = y + "%";
+        },
+        setSwatchPickerPosInitially() {
+            this.swatchPosition.x = this.currentColourValues[1] + '%';
+            this.swatchPosition.y = this.currentColourValues[2] + '%';
+        },
 		leaveSwatch() {
 			this.swatchPickActive = false;
 		},
