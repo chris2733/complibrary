@@ -31,13 +31,20 @@
 			</div>
 		</div>
 		<div class="colourpicker-customhex">
-			<input type="text" placeholder="HEX CODE" maxlength="6" @focusout="checkCustomHex" :class="{ error: customHexError }"/>
+			<input
+				type="text"
+				placeholder="HEX CODE"
+				maxlength="6"
+				@focusout="checkCustomHex($event.target.value)"
+				:class="{ error: customHexError }"
+			/>
 		</div>
 	</section>
 </template>
 
 <script>
 export default {
+    props: ['setInitialColour'],
 	emits: {
 		"pass-colour-values": function(vals) {
 			if (vals) {
@@ -52,7 +59,7 @@ export default {
 		return {
 			// had to use HSV from the user, convert to rgb, then to hex to be consistent
 			currentColourValues: [239, 54, 81, 255], //these both need to be set correct initially
-			currentColour: "#5e60ce", //these both need to be set correct initially
+			currentColour: this.setInitialColour, //these both need to be set correct initially
 			swatchWidth: 0,
 			swatchHeight: 0,
 			swatchPosition: {
@@ -63,7 +70,7 @@ export default {
 				border: "#fff",
 			},
 			swatchPickActive: false,
-            customHexError: false,
+			customHexError: false,
 		};
 	},
 	computed: {
@@ -93,7 +100,8 @@ export default {
 	},
 	mounted() {
 		this.setSwatchWidth();
-        this.setSwatchPickerPosInitially();
+		this.setSwatchPickerPosInitially();
+        this.convertCustomHEXtoHSV(this.setInitialColour);
 	},
 	methods: {
 		setSwatchWidth() {
@@ -109,30 +117,31 @@ export default {
 		},
 		opacityChange() {
 			this.currentColourValues[3] = Number(event.target.value);
-			this.colourChange();
+			this.setColourValues();
 		},
 		hueChange() {
 			this.currentColourValues[0] = event.target.value;
-			this.colourChange();
+			this.setColourValues();
 		},
-		colourChange() {
+		setColourValues() {
 			const rgbval = this.HSVtoRGB(
-                this.currentColourValues[0],
-                this.currentColourValues[1],
-                this.currentColourValues[2]
-            );
-            this.RGBAtoAHEX(rgbval);
+				this.currentColourValues[0],
+				this.currentColourValues[1],
+				this.currentColourValues[2]
+			);
+			this.RGBAtoAHEX(rgbval);
 			this.$emit("pass-colour-values", this.currentColour);
 		},
 		RGBAtoAHEX(rgbval) {
-            let hexval = '';
-            rgbval.forEach(rgbval => {
-                let hex = rgbval.toString(16);
-                hexval = hexval + (hex.length == 1 ? "0" + hex : hex).toString();
-            });
-            // add opacity here, after hsv to rgb calc
-            hexval += this.currentColourValues[3].toString(16);
-            this.currentColour = '#' + hexval;
+			let hexval = "";
+			rgbval.forEach((rgbval) => {
+				let hex = rgbval.toString(16);
+				hexval =
+					hexval + (hex.length == 1 ? "0" + hex : hex).toString();
+			});
+			// add opacity here, after hsv to rgb calc
+			hexval += this.currentColourValues[3].toString(16);
+			this.currentColour = "#" + hexval;
 		},
 		swatchActive() {
 			this.swatchPickActive = true;
@@ -144,21 +153,20 @@ export default {
 				const pickerX = (offsetX / this.swatchWidth) * 100;
 				const pickerY =
 					((offsetY / this.swatchHeight) * 100 - 100) * -1;
-                this.setSwatchPickerPos(pickerX, pickerY);
+				this.setSwatchPickerPos(pickerX, pickerY);
 				this.currentColourValues[1] = pickerX;
 				this.currentColourValues[2] = pickerY;
-                this.colourChange();
-
+				this.setColourValues();
 			}
 		},
-        setSwatchPickerPos(x, y) {
-            this.swatchPosition.x = x + "%";
-            this.swatchPosition.y = y + "%";
-        },
-        setSwatchPickerPosInitially() {
-            this.swatchPosition.x = this.currentColourValues[1] + '%';
-            this.swatchPosition.y = this.currentColourValues[2] + '%';
-        },
+		setSwatchPickerPos(x, y) {
+			this.swatchPosition.x = x + "%";
+			this.swatchPosition.y = y + "%";
+		},
+		setSwatchPickerPosInitially() {
+			this.swatchPosition.x = this.currentColourValues[1] + "%";
+			this.swatchPosition.y = this.currentColourValues[2] + "%";
+		},
 		leaveSwatch() {
 			this.swatchPickActive = false;
 		},
@@ -240,16 +248,93 @@ export default {
 				Math.round(b * 255),
 			];
 		},
-        checkCustomHex() {
-            let regex = /^(?:[0-9a-fA-F]{3}){1,2}$/g;
-            let regtest = regex.test(event.target.value);
-            if (regtest !== true && event.target.value.length !== 0) {
-                this.customHexError = true;
+		checkCustomHex(hexcode) {
+			let regex = /^(?:[0-9a-fA-F]{3}){1,2}$/g;
+			let regtest = regex.test(hexcode);
+			if (regtest !== true && hexcode.length !== 0) {
+				this.customHexError = true;
+			} else {
+				this.customHexError = false;
+                this.convertCustomHEXtoHSV(hexcode);
+			}
+		},
+        convertCustomHEXtoHSV(newhexvalue) {
+            let newHEX;
+            if (newhexvalue.includes('#')) {
+                newHEX = newhexvalue;
             } else {
-                this.customHexError = false;
+                newHEX = '#' + newhexvalue;
             }
-            console.log(this.customHexError);
+            let newRGB = this.HEXtoRGB(newHEX);
+            let newHSV = this.RGBtoHSV(newRGB.r,newRGB.g,newRGB.b);
+            this.currentColourValues[0] = newHSV.h;
+            this.currentColourValues[1] = newHSV.s;
+            this.currentColourValues[2] = newHSV.v;
+            this.currentColourValues[3] = Number('255');
+            this.setSwatchPickerPos(newHSV.s,newHSV.v);
+            this.setColourValues();
         },
+		HEXtoRGB(hex) {
+            // Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
+            var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+            hex = hex.replace(shorthandRegex, function(m, r, g, b) {
+                return r + r + g + g + b + b;
+            });
+
+            var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+            return result ? {
+                r: parseInt(result[1], 16),
+                g: parseInt(result[2], 16),
+                b: parseInt(result[3], 16)
+            } : null;
+        },
+		RGBtoHSV(r,g,b) {
+			let rabs,
+				gabs,
+				babs,
+				rr,
+				gg,
+				bb,
+				h,
+				s,
+				v,
+				diff,
+				diffc,
+				percentRoundFn;
+			rabs = r / 255;
+			gabs = g / 255;
+			babs = b / 255;
+			(v = Math.max(rabs, gabs, babs)),
+				(diff = v - Math.min(rabs, gabs, babs));
+			diffc = (c) => (v - c) / 6 / diff + 1 / 2;
+			percentRoundFn = (num) => Math.round(num * 100) / 100;
+			if (diff == 0) {
+				h = s = 0;
+			} else {
+				s = diff / v;
+				rr = diffc(rabs);
+				gg = diffc(gabs);
+				bb = diffc(babs);
+
+				if (rabs === v) {
+					h = bb - gg;
+				} else if (gabs === v) {
+					h = 1 / 3 + rr - bb;
+				} else if (babs === v) {
+					h = 2 / 3 + gg - rr;
+				}
+				if (h < 0) {
+					h += 1;
+				} else if (h > 1) {
+					h -= 1;
+				}
+			}
+			return {
+				h: Math.round(h * 360),
+				s: percentRoundFn(s * 100),
+				v: percentRoundFn(v * 100),
+			};
+		},
 	},
 };
 </script>
@@ -362,7 +447,7 @@ export default {
 			color: #fff;
 			border-radius: 10px;
 			padding: 7px 0;
-            transition: all 0.1s ease;
+			transition: all 0.1s ease;
 			$placeholdercolour: #fff;
 			&::-webkit-input-placeholder {
 				/* Chrome/Opera/Safari */
@@ -380,9 +465,9 @@ export default {
 				/* Firefox 18- */
 				color: placeholdercolour;
 			}
-            &.error {
-                border: 1px solid red;
-            }
+			&.error {
+				border: 1px solid red;
+			}
 		}
 	}
 }

@@ -2,11 +2,16 @@
 	<div class="buttonshead">
 		<p class="whitetext">{{ bezier.bezierVal }}</p>
 		<p class="whitetext">{{ bezier.speed }}</p>
-        <p class="whitetext">{{ currentColour }}</p>
+        <p class="whitetext">{{ colourPickerPrimary }}</p>
 		<section class="buttonshead-panels">
 			<div class="buttonshead-panels-panel" v-if="showPanel == 'panel1'">
 				<colour-picker
-					@pass-colour-values="updateColour"
+					@pass-colour-values="updatePrimaryColour"
+                    :set-initial-colour="colourPickerPrimary"
+				></colour-picker>
+                <colour-picker
+					@pass-colour-values="updateSecondaryColour"
+                    :set-initial-colour="colourPickerSecondary"
 				></colour-picker>
 			</div>
 			<div class="buttonshead-panels-panel" v-if="showPanel == 'panel2'">
@@ -69,7 +74,8 @@ export default {
 				bezierVal: [0.25, 0.25, 0.75, 0.75],
 				speed: 300,
 			},
-			currentColour: "#03ab28",
+			colourPickerPrimary: "#c0d91e", //needs to be hex, need to set checker on this
+            colourPickerSecondary: "#2919bd", //needs to be hex, need to set checker on this
 		};
 	},
 	methods: {
@@ -88,8 +94,11 @@ export default {
 			this.bezier.bezierVal = newarr;
 			this.bezier.speed = parseInt(newvals.transition);
 		},
-		updateColour(colourval) {
-			this.currentColour = colourval;
+		updatePrimaryColour(colourval) {
+			this.colourPickerPrimary = colourval;
+		},
+        updateSecondaryColour(colourval) {
+			this.colourPickerSecondary = colourval;
 		},
 	},
 };
