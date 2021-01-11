@@ -3,8 +3,9 @@
 		<p class="whitetext">{{ bezier.bezierVal }}</p>
 		<p class="whitetext">{{ bezier.speed }}</p>
         <p class="whitetext">{{ colourPickerPrimary }}</p>
+		<p class="whitetext">{{ colourPickerSecondary }}</p>
 		<section class="buttonshead-panels">
-			<div class="buttonshead-panels-panel" v-if="showPanel == 'panel1'">
+			<div class="buttonshead-panels-panel __colourpanel" v-if="showPanel == 'panel1'">
 				<colour-picker
 					@pass-colour-values="updatePrimaryColour"
                     :set-initial-colour="colourPickerPrimary"
@@ -146,6 +147,15 @@ export default {
 		input {
 			flex-grow: 1;
 			padding: 0 20px;
+		}
+	}
+	&-panels {
+		&-panel {
+			&.__colourpanel {
+				padding: 50px 100px;
+				white-space: nowrap;
+				overflow: auto;
+			}
 		}
 	}
 }

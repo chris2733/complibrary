@@ -2,13 +2,12 @@
 	<section class="colourpicker" :style="cssVars">
 		<div class="colourpicker-demo"></div>
 		<div
-			class="colourpicker-swatch"
+			class="colourpicker-swatch swatchPickerWrap"
 			:style="currentSwatch"
 			@mousedown="swatchActive"
 			@mousemove="moveColourSwatch"
 			@mouseleave="leaveSwatch"
 			@mouseup="leaveSwatch"
-			id="swatchPickerWrap"
 		></div>
 		<div class="colourpicker-draggers">
 			<div class="colourpicker-draggers-colour">
@@ -105,13 +104,13 @@ export default {
 	},
 	methods: {
 		setSwatchWidth() {
-			const swatchEl = document.querySelector("#swatchPickerWrap");
+			const swatchEl = document.querySelector(".swatchPickerWrap");
 			if (swatchEl) {
 				this.swatchWidth = document.querySelector(
-					"#swatchPickerWrap"
+					".swatchPickerWrap"
 				).offsetWidth;
 				this.swatchHeight = document.querySelector(
-					"#swatchPickerWrap"
+					".swatchPickerWrap"
 				).offsetHeight;
 			}
 		},
@@ -342,10 +341,12 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 .colourpicker {
+	display: inline-block;
 	border: 1px solid var(--borders);
 	border-radius: 10px;
 	padding: 20px;
 	width: 250px;
+	margin: 0 40px 0 0;
 	&-demo {
 		height: 100px;
 		background: var(--current-colour);
