@@ -57,8 +57,8 @@ export default {
 	data() {
 		return {
 			// had to use HSV from the user, convert to rgb, then to hex to be consistent
-			currentColourValues: [239, 54, 81, 255], //these both need to be set correct initially
-			currentColour: this.setInitialColour, //these both need to be set correct initially
+			currentColourValues: [239, 54, 81, 255], // ??? duno if this needs fixing?
+			currentColour: this.setInitialColour, 
 			swatchWidth: 0,
 			swatchHeight: 0,
 			swatchPosition: {

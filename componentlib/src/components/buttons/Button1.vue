@@ -1,51 +1,56 @@
 <template>
-    <div class="buttonwrap">
+    <div class="buttonWrap">
+        <h3>{{ buttonName }}</h3>
+            <div class="button" v-html="buttonHTML" :style="cssVars">
+        </div>
     </div>
 </template>
 
-<script>
-// import styled from 'vue-styled-components';
 
+<script>
 export default {
-    data() {
-        return {
-            buttonHTML: `<button>
-    <span>Button</span>
+	props: ["buttonData", "allButtonStyle"],
+	data() {
+		return {
+            buttonName: "Fade 1",
+			buttonHTML: `<button>
+    <span>${this.buttonData.text}</span>
 </button>`,
-            buttonCSS: `display: inline-block;
-background: #ebebeb;
-outline: none;
-padding: 25px 50px;
-cursor: pointer;
-font-weight: 300;
-letter-spacing: 0px;
-transition: 300ms cubic-bezier(0.2,0.2,0.8,0.8);
-color: #4e4e4e;
-border-radius: 0px;
-:hover {
-    background: #e4192f;
-    color: #ffffff;
-}`
+		};
+	},
+	computed: {
+        cssVars() {
+            return {
+                "--text-col": this.buttonData.textColour,
+                "--text-hover-col": this.buttonData.textHoverColour,
+				"--primary-col": this.buttonData.primaryColour,
+                "--secondary-col": this.buttonData.secondaryColour,
+                "--transition": "all " + this.buttonData.transition + "ms cubic-bezier(" + this.buttonData.bezier + ")",
+                "--bezier": this.buttonData.bezier,
+                "--padding": this.allButtonStyle.padding,
+			};
         }
     },
-    methods: {
-        renderButton() {
-            // console.log(buttonElement);
-            const domparser = new DOMParser()
-            const thing = domparser.parseFromString(this.buttonHTML, 'text/html')
-            const thingText = thing.querySelector('button').innerHTML
-            console.log(thingText);
-
-            let buttonElement = document.createElement("button");
-            buttonElement.innerHTML = thingText;
-            document.querySelector('.buttonwrap').appendChild(buttonElement);
-        },
-    },
-    mounted() {
-        this.renderButton();
-    }
-}
+	methods: {},
+};
 </script>
 
+
 <style lang="scss">
+button {
+    display: inline-block;
+    background: var(--primary-col);
+    outline: none;
+    padding: var(--padding);
+    cursor: pointer;
+    font-weight: 300;
+    letter-spacing: 0px;
+    transition: var(--transition);
+    color: var(--text-col);
+    border-radius: 0px;
+    &:hover {
+        background: var(--secondary-col);
+        color: var(--text-hover-col);
+    }
+}
 </style>

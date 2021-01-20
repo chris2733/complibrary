@@ -2,17 +2,30 @@
 	<div class="buttonshead">
 		<p class="whitetext">{{ bezier.bezierVal }}</p>
 		<p class="whitetext">{{ bezier.speed }}</p>
-        <p class="whitetext">{{ colourPickerPrimary }}</p>
+		<p class="whitetext">{{ colourPickerTextColour }}</p>
+		<p class="whitetext">{{ colourPickerTextHoverColour }}</p>
+		<p class="whitetext">{{ colourPickerPrimary }}</p>
 		<p class="whitetext">{{ colourPickerSecondary }}</p>
 		<section class="buttonshead-panels">
-			<div class="buttonshead-panels-panel __colourpanel" v-if="showPanel == 'panel1'">
+			<div
+				class="buttonshead-panels-panel __colourpanel"
+				v-if="showPanel == 'panel1'"
+			>
+				<colour-picker
+					@pass-colour-values="updateTextColour"
+					:set-initial-colour="colourPickerTextColour"
+				></colour-picker>
+				<colour-picker
+					@pass-colour-values="updateTextHoverColour"
+					:set-initial-colour="colourPickerTextHoverColour"
+				></colour-picker>
 				<colour-picker
 					@pass-colour-values="updatePrimaryColour"
-                    :set-initial-colour="colourPickerPrimary"
+					:set-initial-colour="colourPickerPrimary"
 				></colour-picker>
-                <colour-picker
+				<colour-picker
 					@pass-colour-values="updateSecondaryColour"
-                    :set-initial-colour="colourPickerSecondary"
+					:set-initial-colour="colourPickerSecondary"
 				></colour-picker>
 			</div>
 			<div class="buttonshead-panels-panel" v-if="showPanel == 'panel2'">
@@ -52,12 +65,12 @@
 			<p>Button Text</p>
 			<input type="text" v-model="buttonFillText" />
 		</section>
-		<buttons-list></buttons-list>
+		<buttons-list :button-data="buttonData"></buttons-list>
 	</div>
 </template>
 
 <script>
-import buttonsList from "./Buttons.vue";
+import buttonsList from "./ButtonList.vue";
 import bezierGenerator from "./BezierGenerator.vue";
 import colourPicker from "./ColourPicker.vue";
 
@@ -69,15 +82,29 @@ export default {
 	},
 	data() {
 		return {
-			buttonFillText: "Button",
 			showPanel: null,
 			bezier: {
 				bezierVal: [0.25, 0.25, 0.75, 0.75],
 				speed: 300,
 			},
+			colourPickerTextColour: "#fff",
+			colourPickerTextHoverColour: "#000",
 			colourPickerPrimary: "#c0d91e", //needs to be hex, need to set checker on this
-            colourPickerSecondary: "#2919bd", //needs to be hex, need to set checker on this
+			colourPickerSecondary: "#2919bd", //needs to be hex, need to set checker on this
 		};
+	},
+	computed: {
+		buttonData() {
+			return {
+				text: "Button",
+				textColour: this.colourPickerTextColour,
+				textHoverColour: this.colourPickerTextHoverColour,
+				primaryColour: this.colourPickerPrimary,
+				secondaryColour: this.colourPickerSecondary,
+				bezier: this.bezier.bezierVal.toString(),
+				transition: this.bezier.speed,
+			};
+		},
 	},
 	methods: {
 		showHidePanel(panelNo) {
@@ -95,10 +122,16 @@ export default {
 			this.bezier.bezierVal = newarr;
 			this.bezier.speed = parseInt(newvals.transition);
 		},
+		updateTextColour(colourval) {
+			this.colourPickerTextColour = colourval;
+		},
+		updateTextHoverColour(colourval) {
+			this.colourPickerTextHoverColour = colourval;
+		},
 		updatePrimaryColour(colourval) {
 			this.colourPickerPrimary = colourval;
 		},
-        updateSecondaryColour(colourval) {
+		updateSecondaryColour(colourval) {
 			this.colourPickerSecondary = colourval;
 		},
 	},
