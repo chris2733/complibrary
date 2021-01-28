@@ -6,6 +6,7 @@
 		<p class="whitetext">{{ colourPickerTextHoverColour }}</p>
 		<p class="whitetext">{{ colourPickerPrimary }}</p>
 		<p class="whitetext">{{ colourPickerSecondary }}</p>
+		<p class="whitetext">{{ buttonFillText }}</p>
 		<section class="buttonshead-panels">
 			<div
 				class="buttonshead-panels-panel __colourpanel"
@@ -82,6 +83,7 @@ export default {
 	},
 	data() {
 		return {
+			buttonFillText: "Button",
 			showPanel: null,
 			bezier: {
 				bezierVal: [0.25, 0.25, 0.75, 0.75],
@@ -96,7 +98,7 @@ export default {
 	computed: {
 		buttonData() {
 			return {
-				text: "Button",
+				text: this.buttonFillText,
 				textColour: this.colourPickerTextColour,
 				textHoverColour: this.colourPickerTextHoverColour,
 				primaryColour: this.colourPickerPrimary,

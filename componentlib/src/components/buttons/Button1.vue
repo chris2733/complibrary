@@ -1,6 +1,6 @@
 <template>
     <div class="buttonWrap">
-        <h3>{{ buttonName }}</h3>
+        <h3>{{ buttonName }}{{this.buttonData.text}}</h3>
             <div class="button" v-html="buttonHTML" :style="cssVars">
         </div>
     </div>
@@ -13,12 +13,14 @@ export default {
 	data() {
 		return {
             buttonName: "Fade 1",
-			buttonHTML: `<button>
-    <span>${this.buttonData.text}</span>
-</button>`,
 		};
 	},
 	computed: {
+        buttonHTML() {
+            return `<button>
+    <span>${this.buttonData.text ? this.buttonData.text : 'Placeholder' }</span>
+</button>`
+        },
         cssVars() {
             return {
                 "--text-col": this.buttonData.textColour,
