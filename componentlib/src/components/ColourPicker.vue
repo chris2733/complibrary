@@ -254,7 +254,7 @@ export default {
 				this.customHexError = true;
 			} else {
 				this.customHexError = false;
-                this.convertCustomHEXtoHSV(hexcode);
+				this.convertCustomHEXtoHSV(hexcode);
 			}
 		},
         convertCustomHEXtoHSV(newhexvalue) {
@@ -265,6 +265,7 @@ export default {
                 newHEX = '#' + newhexvalue;
             }
             let newRGB = this.HEXtoRGB(newHEX);
+			// console.log(newRGB);
             let newHSV = this.RGBtoHSV(newRGB.r,newRGB.g,newRGB.b);
             this.currentColourValues[0] = newHSV.h;
             this.currentColourValues[1] = newHSV.s;
@@ -274,6 +275,14 @@ export default {
             this.setColourValues();
         },
 		HEXtoRGB(hex) {
+			// check if hex has '#' in front and remove
+			hex = hex.replace('#', '');
+
+			// trim down alpha hex to work with equation
+			if (hex.length > 6) {
+				hex = hex.slice(0,6);
+			}
+
             // Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
             var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
             hex = hex.replace(shorthandRegex, function(m, r, g, b) {
