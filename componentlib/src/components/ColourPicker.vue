@@ -250,7 +250,9 @@ export default {
 		checkCustomHex(hexcode) {
 			let regex = /^(?:[0-9a-fA-F]{3}){1,2}$/g;
 			let regtest = regex.test(hexcode);
-			if (regtest !== true && hexcode.length !== 0) {
+			if (hexcode.length == 0) {
+				this.customHexError = false;
+			} else if (regtest !== true) {
 				this.customHexError = true;
 			} else {
 				this.customHexError = false;
@@ -457,7 +459,7 @@ export default {
 			color: #fff;
 			border-radius: 10px;
 			padding: 7px 0;
-			transition: all 0.1s ease;
+			transition: all 0.2s ease;
 			$placeholdercolour: #fff;
 			&::-webkit-input-placeholder {
 				/* Chrome/Opera/Safari */
