@@ -57,7 +57,7 @@ border-radius: 0px;
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 button {
 	display: inline-block;
 	background: var(--primary-col);

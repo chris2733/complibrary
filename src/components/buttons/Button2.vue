@@ -2,7 +2,11 @@
 	<div class="col-12 col-sm-6 col-md-4 col-lg-3">
 		<div class="buttonWrap">
 			<h3 class="buttonWrap-title">{{ buttonName }}</h3>
-			<div class="button" v-html="buttonHTML" :style="cssVars"></div>
+			<button :style="cssVars">
+				{{ buttonData.text }}
+				<span>{{ buttonData.text }}</span>
+				<span>{{ buttonData.text }}</span>
+			</button>
 			<buttons-data-bar
 				:buttonHTML="buttonHTML"
 				:buttonCSS="buttonCSS"
@@ -24,13 +28,10 @@ export default {
 		};
 	},
 	computed: {
-		buttonTextCheck() {
-			return this.buttonData.text ? this.buttonData.text : "Placeholder";
-		},
 		buttonHTML() {
 			return `<button>
-    <span>${this.buttonTextCheck}</span>
-	<span>${this.buttonTextCheck}</span>
+    <span>Button</span>
+	<span>Button</span>
 </button>`;
 		},
 		buttonCSS() {
@@ -58,7 +59,7 @@ border-radius: 0px;
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 button {
 	position: relative;
 	overflow: hidden;

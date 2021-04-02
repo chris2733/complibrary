@@ -15,13 +15,6 @@ import button2 from "./buttons/Button2.vue";
 
 export default {
 	props: ["buttonData"],
-	provide() {
-		return {
-			buttonData: this.buttonData,
-			allButtonStyle: this.allButtonStyle,
-			setupButtonStyleVars: this.setupButtonCSSVars
-		}
-	},
 	components: {
 		button1: button1,
 		button2: button2,
