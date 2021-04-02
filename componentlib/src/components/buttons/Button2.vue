@@ -14,7 +14,7 @@
 <script>
 import buttonsDataBar from "../ButtonDataBar.vue";
 export default {
-	inject: ["buttonData","allButtonStyle","setupButtonStyleVars"],
+	props: ['buttonData','cssStyles'],
 	components: {
 		"buttons-data-bar": buttonsDataBar,
 	},
@@ -50,7 +50,7 @@ border-radius: 0px;
 }`;
 		},
 		cssVars() {
-			return this.setupButtonStyleVars;
+			return this.cssStyles;
 		},
 	},
 	methods: {},

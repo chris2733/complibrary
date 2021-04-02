@@ -2,10 +2,8 @@
 	<section class="buttonsList" :style="cssVars">
 		<div class="container-fluid p-0">
 			<div class="row no-gutters">
-				<button1
-				></button1>
-				<button2
-				></button2>
+				<button1 :button-data="buttonData" :css-styles="setupButtonCSSVars"></button1>
+				<button2 :button-data="buttonData" :css-styles="setupButtonCSSVars"></button2>
 			</div>
 		</div>
 	</section>
