@@ -105,6 +105,7 @@ export default {
 				secondaryColour: this.colourPickerSecondary,
 				bezier: this.bezier.bezierVal.toString(),
 				transition: this.bezier.speed,
+				padding: '25px 50px'
 			};
 		},
 	},

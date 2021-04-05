@@ -67,35 +67,18 @@ export default {
 	},
 	data() {
 		return {
-			allButtonPadding: "25px 50px",
-		};
+		}
 	},
 	computed: {
 		buttonList() {
-			return buttonListFunction(this.buttonData, this.allButtonPadding);
+			return buttonListFunction(this.buttonData);
 		},
 		cssVars() {
 			return {
-				"--text-col": '#232323',
-				"--background": '#ffffff',
+				'--text-col': '#232323',
+				'--background': '#ffffff',
 			};
 		},
-		// setupButtonCSSVars() {
-		// 	return {
-		// 		"--text-col": this.buttonData.textColour,
-		// 		"--text-hover-col": this.buttonData.textHoverColour,
-		// 		"--primary-col": this.buttonData.primaryColour,
-		// 		"--secondary-col": this.buttonData.secondaryColour,
-		// 		"--transition":
-		// 			"all " +
-		// 			this.buttonData.transition +
-		// 			"ms cubic-bezier(" +
-		// 			this.buttonData.bezier +
-		// 			")",
-		// 		"--bezier": this.buttonData.bezier,
-		// 		"--padding": this.allButtonStyle.padding,
-		// 	}
-		// }
 	},
 	mounted() {},
 	methods: {},
