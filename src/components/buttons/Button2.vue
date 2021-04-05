@@ -17,6 +17,7 @@
 
 <script>
 import buttonsDataBar from "../ButtonDataBar.vue";
+
 export default {
 	props: ['buttonData','cssStyles'],
 	components: {
