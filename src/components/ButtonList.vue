@@ -27,8 +27,8 @@ function buttonListFunction(data) {
 		button1: {
 			name: 'Fade 1',
 			html: `<button>
-		<span>${text}</span>
-	</button>`,
+	<span>${text}</span>
+</button>`,
 			css: `display: inline-block;
 background: ${primaryCol};
 outline: none;
@@ -38,22 +38,25 @@ font-weight: 300;
 letter-spacing: 0px;
 transition: ${transitionProperty};
 color: ${textCol};
-border-radius: 0px;
-&:hover {
-    background: ${secondaryCol};
-    color: ${textHoverCol};
-}`,
+border-radius: 0px;`,
+			cssHover: `background: ${secondaryCol};
+color: ${textHoverCol};
+span {
+	color: red;
+}`
 		},
 		button2: {
 			name: 'Fade 2',
 			html: ``,
-			css: '',
+			css: ``,
+			cssHover: ``,
 		},
 		// use this as a template, ONLY COPY OUT leave here for reference
 		// buttonNameHere: {
 		// 	name: '',
 		// 	html: ``,
-		// 	css: '',
+		// 	css: ``,
+		// cssHover: ``,
 		// },
 	}
 	return buttonList;

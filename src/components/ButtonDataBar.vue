@@ -1,8 +1,8 @@
 <template>
 	<div class="buttonBar">
-		<button @click="copyText($event, buttonHTML)">HTML</button>
-		<button @click="copyText($event, buttonCSS)">CSS</button>
-		<button @click="copyText($event, buttonHTML + '\n' + buttonCSS)">Both</button>
+		<button @click="copyText($event, buttonData.html)">HTML</button>
+		<button @click="copyText($event, buttonData.css)">CSS</button>
+		<button @click="copyText($event, buttonData.html + '\n\n' + buttonData.css)">Both</button>
 		<textarea
 			value="testarea"
 			ref="textCopy"
@@ -13,7 +13,7 @@
 
 <script>
 export default {
-	props: ["buttonHTML", "buttonCSS"],
+	props: ["buttonData"],
 	data() {
 		return {};
 	},
