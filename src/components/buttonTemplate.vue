@@ -7,7 +7,11 @@
 </template>
 
 <script>
+
+// using stylis temporarily, before styled components works with vue 3
+import {compile, middleware, stringify, serialize} from 'stylis'
 import buttonsDataBar from "./ButtonDataBar.vue";
+
 export default {
 	props: ['buttonData','buttonKey'],
     components: {
@@ -20,23 +24,9 @@ export default {
     },
 	computed: {
         dataToCopy() {
-            // if css hover property exists, add tab (4 spaces) to start of each line, for proper formatting
-            let newCss;
-            if (this.buttonData.cssHover.length > 0) {
-                let currentCss = this.buttonData.cssHover.split(/\r?\n/);
-                // set new css, split by line breaks, into new str - with whitespace trimmed from end and tab added to start of each line
-                newCss = currentCss.map(element => '        ' + element + '\n').join('').replace(/\s*$/,"");
-            }
-            // format css properly here
             const data = {
                 html: this.buttonData.html,
-                css: `{
-${this.buttonData.css}
-    &:hover,
-    &:focus {
-${newCss}
-    }
-}`
+                css: this.buttonData.css
             };
             return data;
         }
@@ -44,9 +34,9 @@ ${newCss}
 	methods: {
         setStyleTag() {
             let style = document.createElement("style");
-            style.innerHTML = `.buttonsList .buttonWrap[data-button-key="${this.buttonKey}"] .buttonWrap-html > button {${this.buttonData.css}}
-            .buttonsList .buttonWrap[data-button-key="${this.buttonKey}"] .buttonWrap-html > button:hover,button:focus {${this.buttonData.cssHover}}`;
-            this.$refs.buttonwrap.appendChild(style);   
+            const styleValue = serialize(compile(`.buttonsList .buttonWrap[data-button-key="${this.buttonKey}"] .buttonWrap-html > button{${this.buttonData.css}}`), middleware([stringify]));
+            style.innerHTML = `${styleValue}`;
+            this.$refs.buttonwrap.appendChild(style);
         },
     },
 	mounted() {

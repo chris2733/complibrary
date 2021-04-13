@@ -38,25 +38,73 @@ font-weight: 300;
 letter-spacing: 0px;
 transition: ${transitionProperty};
 color: ${textCol};
-border-radius: 0px;`,
-			cssHover: `background: ${secondaryCol};
-color: ${textHoverCol};
-span {
-	color: red;
-}`
+border-radius: 0px;
+&:hover,
+&:focus {
+	background: ${secondaryCol};
+	color: ${textHoverCol};
+	span {
+		color: red;
+	}
+}`,
 		},
 		button2: {
 			name: 'Fade 2',
-			html: ``,
-			css: ``,
-			cssHover: ``,
+			html: `<button>
+    ${text}
+    <span>${text}</span>
+    <span>${text}</span>
+</button>`,
+			css: `position: relative;
+overflow: hidden;
+display: inline-block;
+outline: none;
+padding: ${padding};
+cursor: pointer;
+color: ${textCol};
+font-weight: 300;
+letter-spacing: 0px;
+background: ${primaryCol};
+border-radius: 0px;
+span {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: inherit;
+    font-family: inherit;
+    transition: ${transitionProperty};
+    &:nth-of-type(1) {
+        background: #ebebeb;
+        color: #4e4e4e;
+    }
+    &:nth-of-type(2) {
+        background: none;
+        color: #ffffff;
+        transform: rotate(30deg);
+        opacity: 0;
+        transform-origin: -50% 0;
+    }
+}
+&:hover,
+&:focus {
+	span {
+		&:nth-of-type(1) {
+			color: ${textHoverCol};
+			background: ${secondaryCol};
+		}
+		&:nth-of-type(2) {
+			transform: rotate(0);
+			opacity: 1;
+		}
+	}
+}`,
 		},
 		// use this as a template, ONLY COPY OUT leave here for reference
 		// buttonNameHere: {
 		// 	name: '',
 		// 	html: ``,
 		// 	css: ``,
-		// cssHover: ``,
+		//  cssHover: ``,
 		// },
 	}
 	return buttonList;
