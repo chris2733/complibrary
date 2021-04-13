@@ -44,7 +44,7 @@ border-radius: 0px;
 	background: ${secondaryCol};
 	color: ${textHoverCol};
 	span {
-		color: red;
+		color: ${textHoverCol};
 	}
 }`,
 		},
@@ -74,12 +74,12 @@ span {
     font-family: inherit;
     transition: ${transitionProperty};
     &:nth-of-type(1) {
-        background: #ebebeb;
-        color: #4e4e4e;
+        color: ${textCol};
+		background: ${primaryCol}
     }
     &:nth-of-type(2) {
-        background: none;
-        color: #ffffff;
+		background: none;
+        color: ${textHoverCol};
         transform: rotate(30deg);
         opacity: 0;
         transform-origin: -50% 0;
@@ -93,6 +93,7 @@ span {
 			background: ${secondaryCol};
 		}
 		&:nth-of-type(2) {
+			color: ${textHoverCol};
 			transform: rotate(0);
 			opacity: 1;
 		}
