@@ -15,18 +15,22 @@
 				<colour-picker
 					@pass-colour-values="updateTextColour"
 					:set-initial-colour="colourPickerTextColour"
+					:picker-settings="{ title: 'Text colour'}"
 				></colour-picker>
 				<colour-picker
 					@pass-colour-values="updateTextHoverColour"
 					:set-initial-colour="colourPickerTextHoverColour"
+					:picker-settings="{ title: 'Text Hover colour'}"
 				></colour-picker>
 				<colour-picker
 					@pass-colour-values="updatePrimaryColour"
 					:set-initial-colour="colourPickerPrimary"
+					:picker-settings="{ title: 'Primary colour'}"
 				></colour-picker>
 				<colour-picker
 					@pass-colour-values="updateSecondaryColour"
 					:set-initial-colour="colourPickerSecondary"
+					:picker-settings="{ title: 'Secondaru colour'}"
 				></colour-picker>
 			</div>
 			<div class="buttonshead-panels-panel" v-if="showPanel == 'panel2'">

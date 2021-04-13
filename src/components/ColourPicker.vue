@@ -1,5 +1,8 @@
 <template>
 	<section class="colourpicker" :style="cssVars">
+		<div class="colourpicker-title" v-if="pickerSettings">
+			{{pickerSettings.title}}
+		</div>
 		<div class="colourpicker-demo"></div>
 		<div
 			class="colourpicker-swatch swatchPickerWrap"
@@ -43,7 +46,7 @@
 
 <script>
 export default {
-    props: ['setInitialColour'],
+    props: ['setInitialColour', 'pickerSettings'],
 	emits: {
 		"pass-colour-values": function(vals) {
 			if (vals) {
@@ -358,6 +361,13 @@ export default {
 	padding: 20px;
 	width: 250px;
 	margin: 0 40px 0 0;
+	&-title {
+		text-align: center;
+		margin: 0 0 15px 0;
+		font-weight: 500;
+		letter-spacing: 0.5px;
+		font-size: 14px;
+	}
 	&-demo {
 		height: 100px;
 		background: var(--current-colour);
