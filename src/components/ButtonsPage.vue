@@ -138,6 +138,33 @@ export default {
 			this.colourPickerSecondary = colourval;
 		},
 	},
+	mounted() {
+		var colors = {
+			lightgreen: "font-weight: bold; color: #06d6a0;",
+			red: "font-weight: bold; color: #EC5f67;",
+			orange: "font-weight: bold; color: #F99157;",
+			yellow: "font-weight: bold; color: #FAC863;",
+			green: "font-weight: bold; color: #99C794;",
+			teal: "font-weight: bold; color: #5FB3B3;",
+			blue: "font-weight: bold; color: #6699CC;",
+			purple: "font-weight: bold; color: #C594C5;",
+			brown: "font-weight: bold; color: #AB7967;",
+			otherpurple: "font-weight: bold; color: #560bad",
+		};
+		console.log(
+			"%cC %cO %cL %cO %cU %cR %cF %cU %cL %cL",
+			colors.lightgreen,
+			colors.red,
+			colors.orange,
+			colors.yellow,
+			colors.green,
+			colors.teal,
+			colors.blue,
+			colors.purple,
+			colors.brown,
+			colors.otherpurple
+		);
+	},
 };
 </script>
 
