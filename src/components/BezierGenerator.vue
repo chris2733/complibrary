@@ -85,8 +85,14 @@
 						<span>{{ animationSpeed }}ms</span>
 					</div>
 				</div>
+				<div>
+					Cubic Bezier: 
+				</div>
 				<div class="mb-3">
-					Cubic Bezier: ({{ bezierTextConstructor }})
+					({{ bezierTextConstructor }})
+				</div>
+				<div class="mb-1">
+					Transition Demo: 
 				</div>
 				<div class="mb-3">
 					<button
@@ -96,8 +102,10 @@
 						HOVER
 					</button>
 				</div>
-				<div class="mb-3">
+				<div class="mb-1">
 					Choose preset:
+				</div>
+				<div>
 					<select @change="selectPreset">
 						<option disabled selected>Select</option>
 						<option value="0.12,0,0.39,0">easeInSine</option>
@@ -192,6 +200,9 @@ export default {
 				outerChartBorder: 'red',
 				circle1: "#ef233c",
 				circle2: "#8d99ae",
+				speedSliderBackground: "#fff",
+				speedSliderThumb: "#2c3e50",
+				speedSliderThumbHover: "#ef233c",
 				demoButtonBackColour1: "#fff",
 				demoButtonBackColour2: "#48bfe3",
 			}
@@ -237,6 +248,9 @@ export default {
 		},
 		cssVars() {
 			return {
+				'--speedslide-back': this.colours.speedSliderBackground,
+				'--speedslide-thumb': this.colours.speedSliderThumb,
+				'--speedslide-thumbhover': this.colours.speedSliderThumbHover,
 				'--demobutton-backcolour1': this.colours.demoButtonBackColour1,
 				'--demobutton-backcolour2': this.colours.demoButtonBackColour2,
 			};
@@ -337,7 +351,6 @@ export default {
 			border-radius: 8px;
 			text-transform: uppercase;
 			overflow: hidden;
-			margin: 15px 0;
 			letter-spacing: 1px;
 			font-size: 14px;
 			&:hover,
@@ -346,6 +359,65 @@ export default {
 			}
 		}
 		&-speed {
+
+			// Range Slider
+			$range-handle-color: var(--speedslide-thumb) !default;
+			$range-handle-color-hover: var(--speedslide-thumbhover) !default;
+			$range-handle-size: 20px !default;
+
+			$range-track-color: var(--speedslide-back) !default;
+			$range-track-height: 10px !default;
+
+			input {
+				-webkit-appearance: none;
+				width: calc(100% - 100px);
+				height: $range-track-height;
+				border-radius: 5px;
+				background: $range-track-color;
+				outline: none;
+				padding: 0;
+				margin: 0;
+
+				// Range Handle
+				&::-webkit-slider-thumb {
+					appearance: none;
+					width: $range-handle-size;
+					height: $range-handle-size;
+					border-radius: 50%;
+					background: $range-handle-color;
+					cursor: pointer;
+					transition: background .15s ease-in-out;
+
+					&:hover {
+					background: $range-handle-color-hover;
+					}
+				}
+
+				&:active::-webkit-slider-thumb {
+					background: $range-handle-color-hover;
+				}
+
+				&::-moz-range-thumb {
+					width: $range-handle-size;
+					height: $range-handle-size;
+					border: 0;
+					border-radius: 50%;
+					background: $range-handle-color;
+					cursor: pointer;
+					transition: background .15s ease-in-out;
+
+					&:hover {
+					background: $range-handle-color-hover;
+					}
+				}
+
+				&:active::-moz-range-thumb {
+					background: $range-handle-color-hover;
+				}
+			}
+			span {
+				margin: 0 0 0 10px;
+			}
 		}
 	}
 }
