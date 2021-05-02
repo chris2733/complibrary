@@ -4,6 +4,8 @@
 			<div
 				class="buttonshead-panels-panel __colourpanel"
 				v-if="showPanel == 'panel1'"
+				data-simplebar
+				data-simplebar-auto-hide="false"
 			>
 				<colour-picker
 					@pass-colour-values="updateTextColour"
@@ -70,6 +72,8 @@
 </template>
 
 <script>
+import 'simplebar';
+import 'simplebar/dist/simplebar.css';
 import buttonsList from "./ButtonList.vue";
 import bezierGenerator from "./BezierGenerator.vue";
 import colourPicker from "./ColourPicker.vue";
