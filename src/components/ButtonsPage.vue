@@ -149,10 +149,9 @@ export default {
 			blue: "font-weight: bold; color: #6699CC;",
 			purple: "font-weight: bold; color: #C594C5;",
 			brown: "font-weight: bold; color: #AB7967;",
-			otherpurple: "font-weight: bold; color: #560bad",
 		};
 		console.log(
-			"%cC %cO %cL %cO %cU %cR %cF %cU %cL %cL",
+			"%cC %cO %cL %cO %cU %cR %cF %cU %cL",
 			colors.lightgreen,
 			colors.red,
 			colors.orange,
@@ -162,7 +161,6 @@ export default {
 			colors.blue,
 			colors.purple,
 			colors.brown,
-			colors.otherpurple
 		);
 	},
 };

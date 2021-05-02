@@ -1,6 +1,6 @@
 <template>
 	<div class="tempWrapper" style="padding: 10px 10%">
-		<div class="bezierContainer">
+		<div class="bezierContainer" :style="cssVars">
 			<svg
 				:viewBox="setViewbox"
 				aria-labelledby="title desc"
@@ -20,14 +20,18 @@
 						:width="chartWidth"
 						y="0"
 						x="0"
-						stroke="blue"
-						fill="#fff"
+						:fill="colours.outerChartFill"
+						:stroke="colours.outerChartBorder"
 					/>
 					<g class="bezier-chart-inner">
-						<rect v-bind="innerChartAttrs" ref="innerChart" />
+						<rect 
+							:fill="colours.innerChartFill"
+							:stroke="colours.innerChartBorder"
+							v-bind="innerChartAttrs" 
+							ref="innerChart" />
 						<path
 							:d="bezierDrawPath"
-							stroke="black"
+							:stroke="colours.bezierStroke"
 							fill="none"
 							stroke-width="2"
 						/>
@@ -45,7 +49,7 @@
 							:r="points.radius"
 							class="bezier-chart-inner-point1"
 							@mousedown="mouseClickPoint1(true)"
-							:fill="themeColours.lightRed"
+							:fill="colours.circle1"
 						/>
 						<line
 							x1="200"
@@ -61,7 +65,7 @@
 							:r="points.radius"
 							class="bezier-chart-inner-point2"
 							@mousedown="mouseClickPoint2(true)"
-							:fill="themeColours.midgrey"
+							:fill="colours.circle2"
 						/>
 					</g>
 				</g>
@@ -86,7 +90,7 @@
 				</div>
 				<div class="mb-3">
 					<button
-						:style="demoButtomStyle"
+						:style="demoButtonStyle"
 						class="bezierContainer-info-button"
 					>
 						HOVER
@@ -180,6 +184,17 @@ export default {
 				lightRed: "#ef233c",
 				darkred: "#d90429",
 			},
+			colours: {
+				bezierStroke: '#000',
+				innerChartFill: 'none',
+				innerChartBorder: '#000',
+				outerChartFill: 'none',
+				outerChartBorder: 'red',
+				circle1: "#ef233c",
+				circle2: "#8d99ae",
+				demoButtonBackColour1: "#fff",
+				demoButtonBackColour2: "#48bfe3",
+			}
 		};
 	},
 	computed: {
@@ -192,7 +207,7 @@ export default {
 			const b = this.bezier;
 			return `${b.p1}, ${b.p2}, ${b.p3}, ${b.p4}`;
 		},
-		demoButtomStyle() {
+		demoButtonStyle() {
 			let style = `all ${this.animationSpeed}ms cubic-bezier(${this.bezierTextConstructor})`;
 			return {
 				transition: style,
@@ -207,8 +222,6 @@ export default {
 				x: "1",
 				height: this.chartWidth,
 				width: this.chartWidth - 2, //-2 to get the borders in
-				fill: "#fff",
-				stroke: "#000",
 			};
 		},
 		chartOffset() {
@@ -220,6 +233,12 @@ export default {
 				height: this.$refs.mainChart.getBoundingClientRect().height,
 				innerHeight: this.$refs.innerChart.getBoundingClientRect()
 					.height,
+			};
+		},
+		cssVars() {
+			return {
+				'--demobutton-backcolour1': this.colours.demoButtonBackColour1,
+				'--demobutton-backcolour2': this.colours.demoButtonBackColour2,
 			};
 		},
 	},
@@ -314,29 +333,16 @@ export default {
 			display: block;
 			position: relative;
 			padding: 10px 80px;
-			border: 1px solid rgba(0, 0, 0, 0.4);
+			background: right top/210% 100% linear-gradient(to right, var(--demobutton-backcolour2) 50%, var(--demobutton-backcolour1) 50%);
 			border-radius: 8px;
 			text-transform: uppercase;
 			overflow: hidden;
 			margin: 15px 0;
 			letter-spacing: 1px;
 			font-size: 14px;
-			&::before {
-				content: "";
-				position: absolute;
-				top: 0;
-				left: 0;
-				height: 100%;
-				width: 0;
-				background: #48bfe3;
-				transition: inherit;
-			}
 			&:hover,
 			&:focus {
-				color: transparent;
-				&::before {
-					width: 100%;
-				}
+				background: left top/210% 100% linear-gradient(to right, var(--demobutton-backcolour2) 50%, var(--demobutton-backcolour1) 50%);
 			}
 		}
 		&-speed {

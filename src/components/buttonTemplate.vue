@@ -9,7 +9,7 @@
 <script>
 
 // using stylis temporarily, before styled components works with vue 3
-import {compile, middleware, stringify, serialize} from 'stylis'
+import {compile, middleware, stringify, serialize} from 'stylis';
 import buttonsDataBar from "./ButtonDataBar.vue";
 
 export default {
