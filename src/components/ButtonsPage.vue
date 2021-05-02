@@ -46,18 +46,21 @@
 				<button
 					class="buttonshead-tabs-each"
 					@click="showHidePanel('panel1')"
+					:class="{'__active' : showPanel == 'panel1'}"
 				>
 					<img src="../assets/paintimg.png" alt="" />
 				</button>
 				<button
 					class="buttonshead-tabs-each"
 					@click="showHidePanel('panel2')"
+					:class="{'__active' : showPanel == 'panel2'}"
 				>
 					<img src="../assets/bounceimg.png" alt="" />
 				</button>
 				<button
 					class="buttonshead-tabs-each"
 					@click="showHidePanel('panel3')"
+					:class="{'__active' : showPanel == 'panel3'}"
 				>
 					<img src="../assets/textimg.png" alt="" />
 				</button>
@@ -186,7 +189,8 @@ export default {
 			background: transparent;
 			border-left: 1px solid #fff3;
 			&:hover,
-			&:focus {
+			&:focus,
+			&.__active {
 				background: #383838;
 			}
 			img {
