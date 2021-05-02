@@ -1,12 +1,5 @@
 <template>
 	<div class="buttonshead">
-		<p class="whitetext">{{ bezier.bezierVal }}</p>
-		<p class="whitetext">{{ bezier.speed }}</p>
-		<p class="whitetext">{{ colourPickerTextColour }}</p>
-		<p class="whitetext">{{ colourPickerTextHoverColour }}</p>
-		<p class="whitetext">{{ colourPickerPrimary }}</p>
-		<p class="whitetext">{{ colourPickerSecondary }}</p>
-		<p class="whitetext">{{ buttonFillText }}</p>
 		<section class="buttonshead-panels">
 			<div
 				class="buttonshead-panels-panel __colourpanel"
@@ -34,10 +27,12 @@
 				></colour-picker>
 			</div>
 			<div class="buttonshead-panels-panel" v-if="showPanel == 'panel2'">
-				<bezier-gen
-					@pass-bezier-values="updateBezier"
-					:bezier-live-vals="bezier"
-				></bezier-gen>
+				<div class="buttonshead-panels-panel-bezierpanel mx-auto">
+					<bezier-gen
+						@pass-bezier-values="updateBezier"
+						:bezier-live-vals="bezier"
+					></bezier-gen>
+				</div>
 			</div>
 			<div class="buttonshead-panels-panel" v-if="showPanel == 'panel3'">
 				panel 3
@@ -216,6 +211,10 @@ export default {
 				padding: 50px 100px;
 				white-space: nowrap;
 				overflow: auto;
+			}
+			&-bezierpanel {
+				max-width: 600px;
+				padding: 50px 0;
 			}
 		}
 	}

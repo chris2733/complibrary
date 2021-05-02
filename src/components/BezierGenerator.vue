@@ -1,141 +1,139 @@
 <template>
-	<div class="tempWrapper" style="padding: 10px 10%">
-		<div class="bezierContainer" :style="cssVars">
-			<svg
-				:viewBox="setViewbox"
-				aria-labelledby="title desc"
-				class="bezier"
-				@mouseleave="resetListener"
-				@mouseup="resetListener"
-				@mousemove="mouseTrack"
-			>
-				<title id="title">Bezier Generator tool</title>
-				<desc id="desc">
-					interactive tool for making a custom bezier generator
-				</desc>
+	<div class="bezierContainer" :style="cssVars">
+		<svg
+			:viewBox="setViewbox"
+			aria-labelledby="title desc"
+			class="bezier"
+			@mouseleave="resetListener"
+			@mouseup="resetListener"
+			@mousemove="mouseTrack"
+		>
+			<title id="title">Bezier Generator tool</title>
+			<desc id="desc">
+				interactive tool for making a custom bezier generator
+			</desc>
 
-				<g class="bezier-chart" ref="mainChart">
-					<rect
-						:height="chartHeight"
-						:width="chartWidth"
-						y="0"
-						x="0"
-						:fill="colours.outerChartFill"
-						:stroke="colours.outerChartBorder"
+			<g class="bezier-chart" ref="mainChart">
+				<rect
+					:height="chartHeight"
+					:width="chartWidth"
+					y="0"
+					x="0"
+					:fill="colours.outerChartFill"
+					:stroke="colours.outerChartBorder"
+				/>
+				<g class="bezier-chart-inner">
+					<rect 
+						:fill="colours.innerChartFill"
+						:stroke="colours.innerChartBorder"
+						v-bind="innerChartAttrs" 
+						ref="innerChart" />
+					<path
+						:d="bezierDrawPath"
+						:stroke="colours.bezierStroke"
+						fill="none"
+						stroke-width="2"
 					/>
-					<g class="bezier-chart-inner">
-						<rect 
-							:fill="colours.innerChartFill"
-							:stroke="colours.innerChartBorder"
-							v-bind="innerChartAttrs" 
-							ref="innerChart" />
-						<path
-							:d="bezierDrawPath"
-							:stroke="colours.bezierStroke"
-							fill="none"
-							stroke-width="2"
-						/>
-						<line
-							x1="0"
-							y1="300"
-							:x2="point1.x"
-							:y2="point1.y"
-							:stroke-width="lines.width"
-							:stroke="lines.stroke"
-						/>
-						<circle
-							:cx="point1.x"
-							:cy="point1.y"
-							:r="points.radius"
-							class="bezier-chart-inner-point1"
-							@mousedown="mouseClickPoint1(true)"
-							:fill="colours.circle1"
-						/>
-						<line
-							x1="200"
-							y1="100"
-							:x2="point2.x"
-							:y2="point2.y"
-							stroke-width="1"
-							:stroke="lines.stroke"
-						/>
-						<circle
-							:cx="point2.x"
-							:cy="point2.y"
-							:r="points.radius"
-							class="bezier-chart-inner-point2"
-							@mousedown="mouseClickPoint2(true)"
-							:fill="colours.circle2"
-						/>
-					</g>
+					<line
+						x1="0"
+						y1="300"
+						:x2="point1.x"
+						:y2="point1.y"
+						:stroke-width="lines.width"
+						:stroke="lines.stroke"
+					/>
+					<circle
+						:cx="point1.x"
+						:cy="point1.y"
+						:r="points.radius"
+						class="bezier-chart-inner-point1"
+						@mousedown="mouseClickPoint1(true)"
+						:fill="colours.circle1"
+					/>
+					<line
+						x1="200"
+						y1="100"
+						:x2="point2.x"
+						:y2="point2.y"
+						stroke-width="1"
+						:stroke="lines.stroke"
+					/>
+					<circle
+						:cx="point2.x"
+						:cy="point2.y"
+						:r="points.radius"
+						class="bezier-chart-inner-point2"
+						@mousedown="mouseClickPoint2(true)"
+						:fill="colours.circle2"
+					/>
 				</g>
-			</svg>
+			</g>
+		</svg>
 
-			<div class="bezierContainer-info">
-				<div class="mb-3">
-					Animation speed:
-					<div class="bezierContainer-info-speed">
-						<input
-							type="range"
-							min="100"
-							max="1500"
-							v-model="animationSpeed"
-							step="10"
-						/>
-						<span>{{ animationSpeed }}ms</span>
-					</div>
+		<div class="bezierContainer-info">
+			<div class="mb-3">
+				Animation speed:
+				<div class="bezierContainer-info-speed">
+					<input
+						type="range"
+						min="100"
+						max="1500"
+						v-model="animationSpeed"
+						step="10"
+					/>
+					<span>{{ animationSpeed }}ms</span>
 				</div>
-				<div>
-					Cubic Bezier: 
-				</div>
-				<div class="mb-3">
-					({{ bezierTextConstructor }})
-				</div>
-				<div class="mb-1">
-					Transition Demo: 
-				</div>
-				<div class="mb-3">
-					<button
-						:style="demoButtonStyle"
-						class="bezierContainer-info-button"
+			</div>
+			<div>
+				Cubic Bezier: 
+			</div>
+			<div class="mb-3">
+				({{ bezierTextConstructor }})
+			</div>
+			<div class="mb-1">
+				Transition Demo: 
+			</div>
+			<div class="mb-3">
+				<button
+					:style="demoButtonStyle"
+					class="bezierContainer-info-button"
+				>
+					HOVER
+				</button>
+			</div>
+			<div class="mb-1">
+				Choose preset:
+			</div>
+			<div>
+				<select @change="selectPreset">
+					<option disabled selected>Select</option>
+					<option value="0.12,0,0.39,0">easeInSine</option>
+					<option value="0.61,1,0.88,1">easeOutSine</option>
+					<option value="0.37,0,0.63,1">easeInOutSine</option>
+					<option value="0.11,0,0.5,0">easeInQuad</option>
+					<option value="0.5,1,0.89,1">easeOutQuad</option>
+					<option value="0.45,0,0.55,1">easeInOutQuad</option>
+					<option value="0.32,0,0.67,0">easeInCubic</option>
+					<option value="0.33,1,0.68,1">easeOutCubic</option>
+					<option value="0.65,0,0.35,1">easeInOutCubic</option>
+					<option value="0.5,0,0.75,0">easeInQuart</option>
+					<option value="0.25,1,0.5,1">easeOutQuart</option>
+					<option value="0.76,0,0.24,1">easeInOutQuart</option>
+					<option value="0.64,0,0.78,0">easeInQuint</option>
+					<option value="0.22,1,0.36,1">easeOutQuint</option>
+					<option value="0.83,0,0.17,1">easeInOutQuint</option>
+					<option value="0.7,0,0.84,0">easeInExpo</option>
+					<option value="0.16,1,0.3,1">easeOutExpo</option>
+					<option value="0.87,0,0.13,1">easeInOutExpo</option>
+					<option value="0.55,0,1,0.45">easeInCirc</option>
+					<option value="0,0.55,0.45,1">easeOutCirc</option>
+					<option value="0.85,0,0.15,1">easeInOutCirc</option>
+					<option value="0.36,0,0.66,-0.56">easeInBack</option>
+					<option value="0.34,1.56,0.64,1">easeOutBack</option>
+					<option value="0.68,-0.6,0.32,1.6"
+						>easeInOutBack</option
 					>
-						HOVER
-					</button>
-				</div>
-				<div class="mb-1">
-					Choose preset:
-				</div>
-				<div>
-					<select @change="selectPreset">
-						<option disabled selected>Select</option>
-						<option value="0.12,0,0.39,0">easeInSine</option>
-						<option value="0.61,1,0.88,1">easeOutSine</option>
-						<option value="0.37,0,0.63,1">easeInOutSine</option>
-						<option value="0.11,0,0.5,0">easeInQuad</option>
-						<option value="0.5,1,0.89,1">easeOutQuad</option>
-						<option value="0.45,0,0.55,1">easeInOutQuad</option>
-						<option value="0.32,0,0.67,0">easeInCubic</option>
-						<option value="0.33,1,0.68,1">easeOutCubic</option>
-						<option value="0.65,0,0.35,1">easeInOutCubic</option>
-						<option value="0.5,0,0.75,0">easeInQuart</option>
-						<option value="0.25,1,0.5,1">easeOutQuart</option>
-						<option value="0.76,0,0.24,1">easeInOutQuart</option>
-						<option value="0.64,0,0.78,0">easeInQuint</option>
-						<option value="0.22,1,0.36,1">easeOutQuint</option>
-						<option value="0.83,0,0.17,1">easeInOutQuint</option>
-						<option value="0.7,0,0.84,0">easeInExpo</option>
-						<option value="0.16,1,0.3,1">easeOutExpo</option>
-						<option value="0.87,0,0.13,1">easeInOutExpo</option>
-						<option value="0.55,0,1,0.45">easeInCirc</option>
-						<option value="0,0.55,0.45,1">easeOutCirc</option>
-						<option value="0.85,0,0.15,1">easeInOutCirc</option>
-						<option value="0.36,0,0.66,-0.56">easeInBack</option>
-						<option value="0.34,1.56,0.64,1">easeOutBack</option>
-						<option value="0.68,-0.6,0.32,1.6"
-							>easeInOutBack</option
-						>
-					</select>
-				</div>
+				</select>
 			</div>
 		</div>
 	</div>
