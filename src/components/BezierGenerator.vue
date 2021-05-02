@@ -80,6 +80,7 @@
 						max="1500"
 						v-model="animationSpeed"
 						step="10"
+						@change="emitBezierVals"
 					/>
 					<span>{{ animationSpeed }}ms</span>
 				</div>
@@ -287,7 +288,7 @@ export default {
 					this.bezier.p4 = yBezierPoint.toFixed(2);
 					this.point2.y = setBezierPositionY;
 				}
-				this.$emit("pass-bezier-values", this.emitBezierVals());
+				this.emitBezierVals();
 			}
 		},
 		mouseClickPoint1(bool) {
@@ -318,10 +319,10 @@ export default {
 				this.innerChartAttrs.height * chosenValue[3];
 		},
 		emitBezierVals() {
-			return {
+			this.$emit("pass-bezier-values", {
 				bezierPoints: this.bezier,
-				speed: this.animationSpeed,
-			};
+				speed: parseInt(this.animationSpeed),
+			});
 		},
 	},
 };

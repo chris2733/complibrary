@@ -125,7 +125,7 @@ export default {
 		},
 		updateBezier(newvals) {
 			this.bezier.bezierVal = Object.values(newvals.bezierPoints);
-			this.bezier.speed = parseInt(newvals.speed);
+			this.bezier.speed = newvals.speed;
 		},
 		updateTextColour(colourval) {
 			this.colourPickerTextColour = colourval;
