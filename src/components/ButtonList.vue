@@ -39,6 +39,9 @@ letter-spacing: 0px;
 transition: ${transitionProperty};
 color: ${textCol};
 border-radius: 0px;
+span {
+	transition: ${transitionProperty};
+}
 &:hover,
 &:focus {
 	background: ${secondaryCol};

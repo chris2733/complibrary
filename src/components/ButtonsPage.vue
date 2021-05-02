@@ -25,7 +25,7 @@
 				<colour-picker
 					@pass-colour-values="updateSecondaryColour"
 					:set-initial-colour="colourPickerSecondary"
-					:picker-settings="{ title: 'Secondaru colour'}"
+					:picker-settings="{ title: 'Secondary colour'}"
 				></colour-picker>
 			</div>
 			<div class="buttonshead-panels-panel" v-if="showPanel == 'panel2'">
