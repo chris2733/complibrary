@@ -122,12 +122,8 @@ export default {
 			}
 		},
 		updateBezier(newvals) {
-			const newarr = [];
-			newvals.bezier.forEach((el) => {
-				newarr.push(parseFloat(el));
-			});
-			this.bezier.bezierVal = newarr;
-			this.bezier.speed = parseInt(newvals.transition);
+			this.bezier.bezierVal = Object.values(newvals.bezierPoints);
+			this.bezier.speed = parseInt(newvals.speed);
 		},
 		updateTextColour(colourval) {
 			this.colourPickerTextColour = colourval;
