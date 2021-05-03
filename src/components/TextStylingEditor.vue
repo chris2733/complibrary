@@ -4,25 +4,25 @@
             <div class="mb-3 col-12">
                 <div class="mb-1">Font picker</div>
                 <div class="d-flex">
-                    <input type="text" class="flex-grow-1 px-3">
-                    <button class="p-3 textstyler-applybutton">Apply font</button>
+                    <input type="text" class="flex-grow-1 px-3" @keyup.enter="updateText" v-model="textStyles.fontName">
+                    <button class="p-3 textstyler-applybutton" @click="updateText">Apply font</button>
                 </div>
             </div>
             <div class="mb-3 col-md-4">
                 <div class="mb-1">Font weight</div>
-                <select name="" id="" class="w-100 p-3">
-                    <option value="n" v-for="n in Array.from({length: 5}, (x, i) => i + 3)" :key="n">{{ n }}00</option>
+                <select name="" id="" class="w-100 p-3" v-model="textStyles.fontWeight" @change="updateText">
+                    <option :value="n + '00'" v-for="n in Array.from({length: 7}, (x, i) => i + 3)" :key="n">{{ n }}00</option>
                 </select>
             </div>
             <div class="mb-3 col-md-4">
                 <div class="mb-1">Font size</div>
-                <select name="" id="" class="w-100 p-3">
-                    <option value="n" v-for="n in Array.from({length: 17}, (x, i) => i + 14)" :key="n">{{ n }}</option>
+                <select name="" id="" class="w-100 p-3" v-model="textStyles.fontSize" @change="updateText">
+                    <option :value="n" v-for="n in Array.from({length: 17}, (x, i) => i + 14)" :key="n" :selected="n == textStyles.fontSize">{{ n }}</option>
                 </select>
             </div>
             <div class="mb-3 col-md-4">
                 <div class="mb-1">letter spacing (px)</div>
-                <input type="text" pattern="^\d*" maxlength="1" class="w-100 p-3" v-model="textStyles.letterSpacing" @change="updateText">
+                <input type="text" pattern="^\d*" maxlength="3" class="w-100 p-3" v-model="textStyles.letterSpacing" @change="updateText">
             </div>
         </div>
 	</div>
@@ -44,7 +44,10 @@ export default {
 	data() {
 		return {
             textStyles: {
-                letterSpacing: this.buttonData.letterSpacing
+                letterSpacing: this.buttonData.letterSpacing,
+                fontWeight: this.buttonData.fontWeight,
+                fontSize: this.buttonData.fontSize,
+                fontName: ''
             }
         };
 	},

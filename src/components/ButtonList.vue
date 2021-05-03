@@ -23,6 +23,8 @@ function buttonListFunction(data) {
 	const transitionSpeed = data.transition;
 	const transitionProperty = `all ${transitionSpeed}ms cubic-bezier(${bezier})`;
 	const padding = data.padding;
+	// const fontWeight = data.fontWeight;
+	// const fontSize = `${data.fontSize}px`;
 	const letterSpacing = `${data.letterSpacing}px`;
 	const buttonList = {
 		button1: {
@@ -35,7 +37,6 @@ background: ${primaryCol};
 outline: none;
 padding: ${padding};
 cursor: pointer;
-font-weight: 300;
 letter-spacing: ${letterSpacing};
 transition: ${transitionProperty};
 color: ${textCol};
@@ -66,7 +67,6 @@ outline: none;
 padding: ${padding};
 cursor: pointer;
 color: ${textCol};
-font-weight: 300;
 letter-spacing: ${letterSpacing};
 background: ${primaryCol};
 border-radius: 0px;
@@ -133,6 +133,8 @@ export default {
 			return {
 				'--text-col': '#232323',
 				'--background': '#ffffff',
+				'--font-size': this.buttonData.fontSize + 'px',
+				'--font-weight': this.buttonData.fontWeight,
 			};
 		},
 	},
@@ -142,9 +144,13 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss" scoped>
+<style lang="scss">
 .buttonsList {
 	background: var(--background);
 	color: var(--text-col);
+	button {
+		font-weight: var(--font-weight);
+		font-size: var(--font-size);
+	}
 }
 </style>

@@ -73,6 +73,8 @@
 			<p>Button Text</p>
 			<input type="text" v-model="buttonFillText" />
 		</section>
+	</div>
+	<div class="buttonsbody" ref="buttonbody">
 		<buttons-list :button-data="buttonData"></buttons-list>
 	</div>
 </template>
@@ -104,7 +106,10 @@ export default {
 			colourPickerTextHoverColour: "#000",
 			colourPickerPrimary: "#c0d91e", //needs to be hex, need to set checker on this
 			colourPickerSecondary: "#2919bd", //needs to be hex, need to set checker on this
-			letterSpacing: 0,
+			padding: '25px 50px',
+			fontWeight: 400,
+			fontSize: 14,
+			letterSpacing: 1,
 		};
 	},
 	computed: {
@@ -117,8 +122,10 @@ export default {
 				secondaryColour: this.colourPickerSecondary,
 				bezier: this.bezier.bezierVal.toString(),
 				transition: this.bezier.speed,
-				padding: '25px 50px',
-				letterSpacing: this.letterSpacing
+				padding: this.padding,
+				fontWeight: this.fontWeight,
+				fontSize: this.fontSize,
+				letterSpacing: this.letterSpacing,
 			};
 		},
 	},
@@ -147,6 +154,8 @@ export default {
 			this.colourPickerSecondary = colourval;
 		},
 		updateTextStyles(textVals) {
+			this.fontWeight = textVals.fontWeight;
+			this.fontSize = textVals.fontSize;
 			this.letterSpacing = textVals.letterSpacing;
 		}
 	},
