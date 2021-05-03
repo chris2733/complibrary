@@ -10,9 +10,9 @@
 						max="70"
 						v-model="dimensions.borderRadius"
 						step="1"
-						@change="emitDimensions"
+						@input="emitDimensions"
 					/>
-					<span>{{ dimensions.borderRadius }}</span>
+					<span>{{ dimensions.borderRadius }}px</span>
                 </div>
             </div>
             <div class="mb-3 col-md-4">
