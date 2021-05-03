@@ -3,3 +3,9 @@
 .wrapper {
     background: #232323;
 }
+
+input[type="range"] {
+    &:focus {
+        outline: 1px solid yellow !important;
+    }
+}

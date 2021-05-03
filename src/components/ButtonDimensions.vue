@@ -24,7 +24,7 @@
 						max="70"
 						v-model="dimensions.paddingX"
 						step="1"
-						@change="emitDimensions"
+						@input="emitDimensions"
 					/>
 					<span>{{ dimensions.paddingX }}px</span>
                 </div>
@@ -38,7 +38,7 @@
 						max="50"
 						v-model="dimensions.paddingY"
 						step="1"
-						@change="emitDimensions"
+						@input="emitDimensions"
 					/>
 					<span>{{ dimensions.paddingY }}px</span>
                 </div>
