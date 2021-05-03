@@ -146,7 +146,7 @@ export default {
 .buttonsList {
 	background: var(--background);
 	color: var(--text-col);
-	button {
+	.buttonWrap-html button {
 		font-weight: var(--font-weight);
 		font-size: var(--font-size);
 		border-radius: var(--border-radius);
