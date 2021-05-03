@@ -263,6 +263,7 @@ export default {
 	&-panels {
 		&-panel {
 			padding: 50px 100px;
+			border-bottom: 1px solid #fff3;
 			&.__colourpanel {
 				white-space: nowrap;
 				overflow: auto;
