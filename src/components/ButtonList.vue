@@ -40,7 +40,6 @@ cursor: pointer;
 letter-spacing: ${letterSpacing};
 transition: ${transitionProperty};
 color: ${textCol};
-border-radius: 0px;
 span {
 	transition: ${transitionProperty};
 }
@@ -69,7 +68,6 @@ cursor: pointer;
 color: ${textCol};
 letter-spacing: ${letterSpacing};
 background: ${primaryCol};
-border-radius: 0px;
 span {
     position: absolute;
     top: 0;
@@ -134,6 +132,7 @@ export default {
 				'--background': '#ffffff',
 				'--font-size': this.buttonData.fontSize + 'px',
 				'--font-weight': this.buttonData.fontWeight,
+				'--border-radius': this.buttonData.borderRadius + 'px',
 			};
 		},
 	},
@@ -150,6 +149,7 @@ export default {
 	button {
 		font-weight: var(--font-weight);
 		font-size: var(--font-size);
+		border-radius: var(--border-radius);
 	}
 }
 </style>

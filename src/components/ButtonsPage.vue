@@ -42,6 +42,12 @@
 					:button-data="buttonData"
 				></text-styling-editor>
 			</div>
+			<div class="buttonshead-panels-panel" v-if="showPanel == 'panel4'">
+				<button-dimensions
+					@pass-dimensions-values="updateDimensions"
+					:button-data="buttonData"
+				></button-dimensions>
+			</div>
 		</section>
 		<section class="buttonshead-main">
 			<p>Buttons Page</p>
@@ -67,6 +73,13 @@
 				>
 					<img src="../assets/textimg.png" alt="" />
 				</button>
+				<button
+					class="buttonshead-tabs-each"
+					@click="showHidePanel('panel4')"
+					:class="{'__active' : showPanel == 'panel4'}"
+				>
+					<img src="../assets/dimensions.png" alt="" />
+				</button>
 			</div>
 		</section>
 		<section class="buttonshead-textfill">
@@ -86,6 +99,7 @@ import buttonsList from "./ButtonList.vue";
 import bezierGenerator from "./BezierGenerator.vue";
 import colourPicker from "./ColourPicker.vue";
 import textStylingEditor from "./TextStylingEditor.vue";
+import ButtonDimensions from "./ButtonDimensions.vue";
 
 export default {
 	components: {
@@ -93,6 +107,7 @@ export default {
 		"bezier-gen": bezierGenerator,
 		"colour-picker": colourPicker,
 		"text-styling-editor": textStylingEditor,
+		"button-dimensions": ButtonDimensions,
 	},
 	data() {
 		return {
@@ -106,13 +121,18 @@ export default {
 			colourPickerTextHoverColour: "#000",
 			colourPickerPrimary: "#c0d91e", //needs to be hex, need to set checker on this
 			colourPickerSecondary: "#2919bd", //needs to be hex, need to set checker on this
-			padding: '25px 50px',
+			paddingX: 50,
+			paddingY: 25,
 			fontWeight: 400,
 			fontSize: 14,
 			letterSpacing: 1,
+			borderRadius: 0,
 		};
 	},
 	computed: {
+		paddingStr() {
+			return `${this.paddingY}px ${this.paddingX}px`
+		},
 		buttonData() {
 			return {
 				text: this.buttonFillText,
@@ -122,10 +142,13 @@ export default {
 				secondaryColour: this.colourPickerSecondary,
 				bezier: this.bezier.bezierVal.toString(),
 				transition: this.bezier.speed,
-				padding: this.padding,
+				padding: this.paddingStr,
 				fontWeight: this.fontWeight,
 				fontSize: this.fontSize,
 				letterSpacing: this.letterSpacing,
+				borderRadius: this.borderRadius,
+				paddingX: this.paddingX,
+				paddingY: this.paddingY,
 			};
 		},
 	},
@@ -158,6 +181,11 @@ export default {
 			this.fontSize = textVals.fontSize;
 			this.letterSpacing = textVals.letterSpacing;
 		},
+		updateDimensions(dimensions) {
+			this.borderRadius = dimensions.borderRadius;
+			this.paddingY = dimensions.paddingY;
+			this.paddingX = dimensions.paddingX;
+		}
 	},
 	mounted() {
 		var colors = {

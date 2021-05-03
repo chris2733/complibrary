@@ -15,6 +15,8 @@
             </div>
             <div class="mb-3 col-md-4">
                 <div class="mb-1">letter spacing (px)</div>
+                <div class="textstyler-rangeslider">
+                </div>
                 <input type="text" pattern="^\d*" maxlength="3" class="w-100 p-3" v-model="textStyles.letterSpacing" @change="updateText">
             </div>
         </div>
