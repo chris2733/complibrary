@@ -157,7 +157,7 @@ export default {
 			this.fontWeight = textVals.fontWeight;
 			this.fontSize = textVals.fontSize;
 			this.letterSpacing = textVals.letterSpacing;
-		}
+		},
 	},
 	mounted() {
 		var colors = {

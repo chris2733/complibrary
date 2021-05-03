@@ -109,7 +109,6 @@ span {
 		// 	name: '',
 		// 	html: ``,
 		// 	css: ``,
-		//  cssHover: ``,
 		// },
 	}
 	return buttonList;

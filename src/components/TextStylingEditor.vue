@@ -1,13 +1,6 @@
 <template>
 	<div class="textstyler container">
         <div class="row">
-            <div class="mb-3 col-12">
-                <div class="mb-1">Font picker</div>
-                <div class="d-flex">
-                    <input type="text" class="flex-grow-1 px-3" @keyup.enter="updateText" v-model="textStyles.fontName">
-                    <button class="p-3 textstyler-applybutton" @click="updateText">Apply font</button>
-                </div>
-            </div>
             <div class="mb-3 col-md-4">
                 <div class="mb-1">Font weight</div>
                 <select name="" id="" class="w-100 p-3" v-model="textStyles.fontWeight" @change="updateText">
@@ -47,7 +40,6 @@ export default {
                 letterSpacing: this.buttonData.letterSpacing,
                 fontWeight: this.buttonData.fontWeight,
                 fontSize: this.buttonData.fontSize,
-                fontName: ''
             }
         };
 	},
