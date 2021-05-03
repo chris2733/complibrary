@@ -37,10 +37,10 @@
 				</div>
 			</div>
 			<div class="buttonshead-panels-panel" v-if="showPanel == 'panel3'">
-				<textStylingEditor
+				<text-styling-editor
 					@pass-styling-values="updateTextStyles"
 					:button-data="buttonData"
-				></textStylingEditor>
+				></text-styling-editor>
 			</div>
 		</section>
 		<section class="buttonshead-main">
@@ -92,7 +92,7 @@ export default {
 		"buttons-list": buttonsList,
 		"bezier-gen": bezierGenerator,
 		"colour-picker": colourPicker,
-		textStylingEditor,
+		"text-styling-editor": textStylingEditor,
 	},
 	data() {
 		return {

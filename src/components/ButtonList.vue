@@ -115,7 +115,7 @@ span {
 	return buttonList;
 }
 
-import buttonTemplate from "./buttonTemplate.vue";
+import buttonTemplate from "./ButtonTemplate.vue";
 export default {
 	props: ["buttonData"],
 	components: {
