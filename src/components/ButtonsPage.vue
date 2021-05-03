@@ -37,7 +37,10 @@
 				</div>
 			</div>
 			<div class="buttonshead-panels-panel" v-if="showPanel == 'panel3'">
-				panel 3
+				<textStylingEditor
+					@pass-styling-values="updateTextStyles"
+					:button-data="buttonData"
+				></textStylingEditor>
 			</div>
 		</section>
 		<section class="buttonshead-main">
@@ -80,12 +83,14 @@ import 'simplebar/dist/simplebar.css';
 import buttonsList from "./ButtonList.vue";
 import bezierGenerator from "./BezierGenerator.vue";
 import colourPicker from "./ColourPicker.vue";
+import textStylingEditor from "./TextStylingEditor.vue";
 
 export default {
 	components: {
 		"buttons-list": buttonsList,
 		"bezier-gen": bezierGenerator,
 		"colour-picker": colourPicker,
+		textStylingEditor,
 	},
 	data() {
 		return {
@@ -99,6 +104,7 @@ export default {
 			colourPickerTextHoverColour: "#000",
 			colourPickerPrimary: "#c0d91e", //needs to be hex, need to set checker on this
 			colourPickerSecondary: "#2919bd", //needs to be hex, need to set checker on this
+			letterSpacing: 0,
 		};
 	},
 	computed: {
@@ -111,7 +117,8 @@ export default {
 				secondaryColour: this.colourPickerSecondary,
 				bezier: this.bezier.bezierVal.toString(),
 				transition: this.bezier.speed,
-				padding: '25px 50px'
+				padding: '25px 50px',
+				letterSpacing: this.letterSpacing
 			};
 		},
 	},
@@ -139,6 +146,9 @@ export default {
 		updateSecondaryColour(colourval) {
 			this.colourPickerSecondary = colourval;
 		},
+		updateTextStyles(textVals) {
+			this.letterSpacing = textVals.letterSpacing;
+		}
 	},
 	mounted() {
 		var colors = {
@@ -215,14 +225,13 @@ export default {
 	}
 	&-panels {
 		&-panel {
+			padding: 50px 100px;
 			&.__colourpanel {
-				padding: 50px 100px;
 				white-space: nowrap;
 				overflow: auto;
 			}
 			&-bezierpanel {
 				max-width: 600px;
-				padding: 50px 0;
 			}
 		}
 	}

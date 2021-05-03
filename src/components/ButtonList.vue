@@ -23,6 +23,7 @@ function buttonListFunction(data) {
 	const transitionSpeed = data.transition;
 	const transitionProperty = `all ${transitionSpeed}ms cubic-bezier(${bezier})`;
 	const padding = data.padding;
+	const letterSpacing = `${data.letterSpacing}px`;
 	const buttonList = {
 		button1: {
 			name: 'Fade 1',
@@ -35,7 +36,7 @@ outline: none;
 padding: ${padding};
 cursor: pointer;
 font-weight: 300;
-letter-spacing: 0px;
+letter-spacing: ${letterSpacing};
 transition: ${transitionProperty};
 color: ${textCol};
 border-radius: 0px;
@@ -66,7 +67,7 @@ padding: ${padding};
 cursor: pointer;
 color: ${textCol};
 font-weight: 300;
-letter-spacing: 0px;
+letter-spacing: ${letterSpacing};
 background: ${primaryCol};
 border-radius: 0px;
 span {
