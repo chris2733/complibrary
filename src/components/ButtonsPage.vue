@@ -96,18 +96,18 @@
 import 'simplebar';
 import 'simplebar/dist/simplebar.css';
 import buttonsList from "./ButtonList.vue";
-import bezierGenerator from "./BezierGenerator.vue";
+import bezierGen from "./BezierGenerator.vue";
 import colourPicker from "./ColourPicker.vue";
 import textStylingEditor from "./TextStylingEditor.vue";
 import ButtonDimensions from "./ButtonDimensions.vue";
 
 export default {
 	components: {
-		"buttons-list": buttonsList,
-		"bezier-gen": bezierGenerator,
-		"colour-picker": colourPicker,
-		"text-styling-editor": textStylingEditor,
-		"button-dimensions": ButtonDimensions,
+		buttonsList,
+		bezierGen,
+		colourPicker,
+		textStylingEditor,
+		ButtonDimensions,
 	},
 	data() {
 		return {
