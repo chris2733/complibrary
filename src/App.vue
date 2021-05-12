@@ -1,17 +1,17 @@
 <template>
     <section>
-		<TopNav></TopNav>
-		<buttons-page></buttons-page>
+		<top-nav></top-nav>
+		<router-view></router-view>
 	</section>
 </template>
 
 <script>
-import TopNav from "./components/TopNav.vue";
+import TopNav from "./root-components/TopNav.vue";
 
 export default {
     name: "App",
     components: {
-        TopNav,
+        TopNav
     },
     data() {
         return {
@@ -23,7 +23,4 @@ export default {
 </script>
 
 <style lang="scss">
-.whitetext {
-    color: #fff;
-}
 </style>

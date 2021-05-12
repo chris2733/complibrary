@@ -1,8 +1,8 @@
 <template>
     <div class="topbar">
-        <p class="topbar-title">Component lib</p>
-        <a href="#nogo">Buttons</a>
-        <a href="#nogo">Components</a>
+        <p class="topbar-title">Component library</p>
+		<router-link to="/buttons">Buttons</router-link>
+		<router-link to="/components">Components</router-link>
     </div>
 </template>
 
