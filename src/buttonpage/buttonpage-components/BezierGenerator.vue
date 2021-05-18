@@ -1,6 +1,7 @@
 <template>
 	<div class="bezierContainer" :style="cssVars">
 		<svg
+			class="bezier"
 			:viewBox="setViewbox"
 			aria-labelledby="bezierTitle bezierDesc"
 			aria-describedby="bezierDesc"
@@ -56,6 +57,8 @@
 						@keydown.prevent.up="point1.y--"
 						@keydown.prevent.down="point1.y++"
 						@keydown="setBezier()"
+						aria-label="bezier point 1"
+						role="button"
 					/>
 					<line
 						x1="200"
@@ -78,6 +81,8 @@
 						@keydown.prevent.up="point2.y--"
 						@keydown.prevent.down="point2.y++"
 						@keydown="setBezier()"
+						aria-label="bezier point 2"
+						role="button"
 					/>
 				</g>
 			</g>
@@ -353,8 +358,14 @@ export default {
 <style lang="scss" scoped>
 .bezierContainer {
 	position: relative;
-	svg {
+	.bezier {
 		width: 50%;
+		&-chart-inner-point1,
+		&-chart-inner-point2 {
+			&::focus {
+				outline: 2px solid #fff;
+			}
+		}
 	}
 	&-info {
 		position: absolute;

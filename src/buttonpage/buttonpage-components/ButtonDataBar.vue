@@ -7,6 +7,7 @@
 			value="testarea"
 			ref="textCopy"
 			class="buttonBar-hiddentext"
+			tabindex="-1"
 		></textarea>
 	</div>
 </template>

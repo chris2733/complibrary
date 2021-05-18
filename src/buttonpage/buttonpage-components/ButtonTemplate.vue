@@ -1,7 +1,7 @@
 <template>
     <div class="buttonWrap text-center" ref="buttonwrap" :data-button-key="buttonKey">
         <h3 class="buttonWrap-title">{{ buttonData.name }}</h3>
-        <div class="buttonWrap-html" v-html="buttonData.html"></div>
+        <div class="buttonWrap-html" v-html="buttonData.html" ref="buttonHtml"></div>
         <buttons-data-bar :buttonData="dataToCopy"></buttons-data-bar>
     </div>
 </template>
@@ -41,6 +41,7 @@ export default {
     },
 	mounted() {
         this.setStyleTag();
+        this.$refs.buttonHtml.childNodes[0].setAttribute('tabindex', -1);
     },
 };
 </script>
