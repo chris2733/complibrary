@@ -1,6 +1,5 @@
 <template>
 	<div class="topbar" ref="topBar">
-        <p class="topbar-title">Component library</p>
 		<button class="topbar-buttons" @click="menuItemClick('topbar-fontswitcher')">Font Switcher</button>
         <button class="topbar-buttons" @click="menuItemClick('topbar-plugins')">Plugins</button>
         <button class="topbar-buttons" @click="menuItemClick('topbar-snippets')">Snippets</button>
@@ -28,13 +27,9 @@ export default {
 	display: flex;
 	font-size: 16px;
 	align-items: center;
+	justify-content: flex-end;
 	padding: 0 20px;
 	background: #404040;
-	&-title {
-		flex-grow: 1;
-		margin: 0;
-		color: #fff;
-	}
 	&-buttons {
 		color: #fff;
 		text-decoration: none;
