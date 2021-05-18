@@ -2,15 +2,16 @@
 	<div class="bezierContainer" :style="cssVars">
 		<svg
 			:viewBox="setViewbox"
-			aria-labelledby="title desc"
-			class="bezier"
+			aria-labelledby="bezierTitle bezierDesc"
+			aria-describedby="bezierDesc"
+			role="img"
 			@mouseleave="resetListener"
 			@mouseup="resetListener"
 			@mousemove="mouseTrack"
 		>
-			<title id="title">Bezier Generator tool</title>
-			<desc id="desc">
-				interactive tool for making a custom bezier generator
+			<title id="bezierTitle">Bezier Generator tool</title>
+			<desc id="bezierDesc">
+				interactive tool for making a custom bezier curve
 			</desc>
 
 			<g class="bezier-chart" ref="mainChart">
@@ -49,6 +50,12 @@
 						class="bezier-chart-inner-point1"
 						@mousedown="mouseClickPoint1(true)"
 						:fill="colours.circle1"
+						tabindex="0"
+						@keydown.prevent.left="point1.x--"
+						@keydown.prevent.right="point1.x++"
+						@keydown.prevent.up="point1.y--"
+						@keydown.prevent.down="point1.y++"
+						@keydown="setBezier()"
 					/>
 					<line
 						x1="200"
@@ -65,6 +72,12 @@
 						class="bezier-chart-inner-point2"
 						@mousedown="mouseClickPoint2(true)"
 						:fill="colours.circle2"
+						tabindex="0"
+						@keydown.prevent.left="point2.x--"
+						@keydown.prevent.right="point2.x++"
+						@keydown.prevent.up="point2.y--"
+						@keydown.prevent.down="point2.y++"
+						@keydown="setBezier()"
 					/>
 				</g>
 			</g>
@@ -317,6 +330,14 @@ export default {
 			this.point2.y =
 				this.chartWidth * 1.5 -
 				this.innerChartAttrs.height * chosenValue[3];
+		},
+		setBezier() {
+			this.bezier.p1 = (this.point1.x / this.chartWidth).toFixed(2);
+			let yOffsetP2 = this.chartHeight - this.point1.y - this.chartWidth / 2;
+			this.bezier.p2 = (yOffsetP2 / this.chartWidth).toFixed(2);
+			this.bezier.p3 = (this.point2.x / this.chartWidth).toFixed(2);
+			let yOffsetP4 = this.chartHeight - this.point2.y - this.chartWidth / 2;
+			this.bezier.p4 = (yOffsetP4 / this.chartWidth).toFixed(2);
 		},
 		emitBezierVals() {
 			this.$emit("pass-bezier-values", {
