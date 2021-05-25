@@ -1,6 +1,6 @@
 <template>
     <div class="buttonWrap text-center" ref="buttonwrap" :data-button-key="buttonKey">
-        <h3 class="buttonWrap-title">{{ buttonData.name }}</h3>
+        <h4 class="buttonWrap-title">{{ buttonData.name }}</h4>
         <div class="buttonWrap-html" v-html="buttonData.html" ref="buttonHtml"></div>
         <buttons-data-bar :buttonData="dataToCopy"></buttons-data-bar>
     </div>

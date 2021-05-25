@@ -3,6 +3,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 
 // css
 import './scss/main.scss'
+import "bootstrap/dist/css/bootstrap.min.css";
 
 // app files
 import App from './App.vue'
