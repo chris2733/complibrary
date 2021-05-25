@@ -15,9 +15,9 @@
 </template>
 
 <script>
-import TopBar from "./componentlibrary-components/TopBar.vue";
-import SideBar from "./componentlibrary-components/SideBar.vue";
-import ViewPanel from "./componentlibrary-components/ViewPanel.vue";
+import TopBar from "./components/TopBar.vue";
+import SideBar from "./components/SideBar.vue";
+import ViewPanel from "./components/ViewPanel.vue";
 
 export default {
 	name: "App",

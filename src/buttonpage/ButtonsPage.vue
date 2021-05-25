@@ -95,11 +95,11 @@
 <script>
 import 'simplebar';
 import 'simplebar/dist/simplebar.css';
-import buttonsList from "./buttonpage-components/ButtonList.vue";
-import bezierGen from "./buttonpage-components/BezierGenerator.vue";
-import colourPicker from "./buttonpage-components/ColourPicker.vue";
-import textStylingEditor from "./buttonpage-components/TextStylingEditor.vue";
-import ButtonDimensions from "./buttonpage-components/ButtonDimensions.vue";
+import buttonsList from "./components/ButtonList.vue";
+import bezierGen from "./components/BezierGenerator.vue";
+import colourPicker from "./components/ColourPicker.vue";
+import textStylingEditor from "./components/TextStylingEditor.vue";
+import ButtonDimensions from "./components/ButtonDimensions.vue";
 
 export default {
 	components: {
