@@ -46,9 +46,9 @@ export default {
 	margin: 50px 0 0 0;
 	button {
 		position: relative;
-		color: #232323;
+		color: rgba(#232323, 0.4);
 		font-weight: 400;
-		font-size: 15px;
+		font-size: 16px;
 		transition: all 0.3s ease;
 		&::before {
 			content: "Copied!";

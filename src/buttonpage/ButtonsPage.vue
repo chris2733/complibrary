@@ -50,7 +50,6 @@
 			</div>
 		</section>
 		<section class="buttonshead-main">
-			<p>Buttons Page</p>
 			<div class="buttonshead-tabs">
 				<button
 					class="buttonshead-tabs-each"
@@ -117,16 +116,16 @@ export default {
 				bezierVal: [0.25, 0.25, 0.75, 0.75],
 				speed: 300,
 			},
-			colourPickerTextColour: "#fff",
-			colourPickerTextHoverColour: "#000",
-			colourPickerPrimary: "#c0d91e", //needs to be hex, need to set checker on this
-			colourPickerSecondary: "#2919bd", //needs to be hex, need to set checker on this
-			paddingX: 50,
-			paddingY: 25,
+			colourPickerTextColour: "#ffffff",
+			colourPickerTextHoverColour: "#eeeeee",
+			colourPickerPrimary: "#00adb5", //needs to be hex, need to set checker on this
+			colourPickerSecondary: "#393e46", //needs to be hex, need to set checker on this
+			paddingX: 50, // set in px
+			paddingY: 25, // set in px
 			fontWeight: 400,
-			fontSize: 14,
-			letterSpacing: 1,
-			borderRadius: 0,
+			fontSize: 14, // set in px
+			letterSpacing: 1, // set in px, doesnt work unless a num
+			borderRadius: 0, // set in px
 		};
 	},
 	computed: {
@@ -222,7 +221,7 @@ export default {
 	border-top: 1px solid #fff3;
 	&-main {
 		display: flex;
-		justify-content: space-between;
+		justify-content: flex-end;
 		align-items: center;
 		padding: 0 0 0 20px;
 	}
@@ -254,6 +253,7 @@ export default {
 		p {
 			padding: 20px;
 			border-top: 1px solid #fff3;
+			margin: 0;
 		}
 		input {
 			flex-grow: 1;
